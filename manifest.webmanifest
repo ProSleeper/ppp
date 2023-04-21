@@ -1,17 +1,17 @@
 {
-  "name": "Github Page PWA",
-  "short_name": "GPPWA",
-  "description": "Github Page as a Progressive Web App",
-  "scope": "/github-page-pwa/",
-  "start_url": "/github-page-pwa/",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "display": "standalone", 
-  "icons": [
-      {
-        "src": "/github-page-pwa/img/icon.png",
-        "type": "image/png",
-        "sizes": "700x700"
-      }
-  ]
+    "name": "ppp",
+    "short_name": "p",
+    "description": "Github Page as a Progressive Web App",
+    "scope": "/ppp/",
+    "start_url": "/ppp/",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/ppp/img/icon.png",
+            "type": "image/png",
+            "sizes": "700x700"
+        }
+    ]
 }
