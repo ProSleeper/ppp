@@ -5,5 +5,9 @@ Notification.requestPermission().then((status) => {
 
     if (status === "denied") {
         alert("Notification °ÅºÎµÊ");
+    } else {
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.register("/ppp/sw.js", { scope: "/ppp/" });
+        }
     }
 });
