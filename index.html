@@ -17,6 +17,10 @@
   // register ServiceWorker, remember to use absolute path!
   if (navigator.serviceWorker) {
     navigator.serviceWorker.register('/ppp/sw.js', { scope: '/ppp/' })
+    console.log("serviceWorker run Success");
+  }
+  else {
+    console.log("serviceWorker run failed");
   }
   
   // --- Application code here ---
