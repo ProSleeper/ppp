@@ -11,6 +11,28 @@ var URLS = [
 //     console.log("timeout!!");
 // });
 
+const btn = document.querySelector("button");
+
+btn.addEventListener("click", () => {
+    navigator.serviceWorker.ready.then((registration) => {
+        registration.pushManager.getSubscription().then((subscription) => {
+            if (subscription) {
+                console.log("subs on!");
+            } else {
+                console.log("no subs");
+                registration.pushManager
+                    .subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: "abc123",
+                    })
+                    .then((subscription) => {
+                        console.log("save subs");
+                    });
+            }
+        });
+    });
+});
+
 // Respond with cached resources
 self.addEventListener("fetch", function (e) {
     console.log("fetch request : " + e.request.url);
@@ -65,6 +87,8 @@ self.addEventListener("activate", function (e) {
         })
     );
 });
+
+
 
 
 
