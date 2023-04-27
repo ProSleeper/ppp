@@ -11,9 +11,10 @@ var URLS = [
 //     console.log("timeout!!");
 // });
 
-const btn = document.querySelector("button");
+const btn = document.querySelector("#btn1");
 
 btn.addEventListener("click", () => {
+  console.log("click");
     navigator.serviceWorker.ready.then((registration) => {
         registration.pushManager.getSubscription().then((subscription) => {
             if (subscription) {
