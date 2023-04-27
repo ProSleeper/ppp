@@ -7,9 +7,9 @@ var URLS = [
     "/ppp/index.html", // add path to those files here
 ];
 
-self.addEventListener("load", function () {
-    console.log("timeout!!");
-});
+// self.addEventListener("load", function () {
+//     console.log("timeout!!");
+// });
 
 // Respond with cached resources
 self.addEventListener("fetch", function (e) {
