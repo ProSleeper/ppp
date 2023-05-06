@@ -2,10 +2,19 @@
 
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+// const os = require("os");
 
 const AddUrl = () => {
     const [url, setUrl] = useState("");
-    const reqUrl = "http://manyo.hopto.org/addUrl";
+    let reqUrl = "http://manyo.hopto.org/addUrl";
+
+    // if (os.platform().toLocaleLowerCase() !== "win32") {
+    //     reqUrl = "http://manyo.hopto.org/addUrl";
+    // }
+    // else {
+        // reqUrl = "http://192.168.219.109:4000/addUrl";
+        reqUrl = "http://127.0.0.1:4000/addUrl";
+    // }
     // const reqUrl = "http://192.168.219.109:4000/addUrl";
 
     // const handleSubmit = async (event) => {
