@@ -17,7 +17,7 @@ connection.connect(function(err) {
 });
 
 // 예시 쿼리 실행
-connection.query('SELECT * FROM product', function (error, results, fields) {
+connection.query('SELECT * FROM product_url', function (error, results, fields) {
   if (error) throw error;
   console.log('The solution is: ', results);
 });
