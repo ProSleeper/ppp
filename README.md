@@ -1,2 +1,2 @@
 # ppp
-[client](https://prosleeper.github.io/ppp/)
+- 리액트를 이용한 front와 express를 이용한 백엔드로 만든 가격 크롤링 프로그램.
