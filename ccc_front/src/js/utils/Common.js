@@ -20,8 +20,8 @@
 //     deviceType,
 //     deviceDetect,
 // } from "react-device-detect";
-import { isWindows } from "react-device-detect";
 
+/*
 const device_check = () => {
     console.log("isWindows: " + isWindows);
     console.log("isMacOs: " + isMacOs);
@@ -44,6 +44,9 @@ const device_check = () => {
     console.log("deviceType: " + deviceType);
     console.log("deviceDetect: " + deviceDetect);
 };
+*/
+
+import { isWindows } from "react-device-detect";
 
 const handleSubmit = (event, url) => {
     event && event.preventDefault();
