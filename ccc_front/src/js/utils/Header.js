@@ -13,7 +13,7 @@ const Header = () => {
                     <Nav.Link as={Link} to="/" className="btn btn-secondary">
                         Home
                     </Nav.Link>
-                    <Nav.Link as={Link} to="/addurl" className="btn btn-secondary">
+                    <Nav.Link as={Link} to="/add_url" className="btn btn-secondary">
                         AddUrl
                     </Nav.Link>
                     <Nav.Link as={Link} to="/Urls" className="btn btn-warning">

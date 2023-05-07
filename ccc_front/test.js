@@ -1,5 +1,5 @@
-const os = require("os");
+const isWindows = true;
 
-console.log(os.platform().toLocaleLowerCase());
+const reqUrl = (isWindows && "http://manyo.hopto.org/add_url") || "http://127.0.0.1:4000/add_url";
 
-os.platform().toLocaleLowerCase() !== "win32"
+console.log(reqUrl);

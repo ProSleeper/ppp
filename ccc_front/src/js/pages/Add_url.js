@@ -2,30 +2,11 @@
 
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-// const os = require("os");
+import { isAndroid, isMacOs, isWindows } from "react-device-detect";
 
 const AddUrl = () => {
     const [url, setUrl] = useState("");
-    let reqUrl = "http://manyo.hopto.org/addUrl";
-
-    // if (os.platform().toLocaleLowerCase() !== "win32") {
-    //     reqUrl = "http://manyo.hopto.org/addUrl";
-    // }
-    // else {
-        // reqUrl = "http://192.168.219.109:4000/addUrl";
-        reqUrl = "http://127.0.0.1:4000/addUrl";
-    // }
-    // const reqUrl = "http://192.168.219.109:4000/addUrl";
-
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //         const response = await axios.get(reqUrl);
-    //         console.log(response.data); // 서버 응답 데이터 출력
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
+    const reqUrl = (isWindows && "http://127.0.0.1:4000/add_url") || "http://manyo.hopto.org/add_url";
 
     const handleSubmit = (event) => {
         event.preventDefault();

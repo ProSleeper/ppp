@@ -6,7 +6,8 @@ const { insert_data, update_data, delete_data, select_data } = require("./mysql.
 // const cors = require('cors');
 // const PORT = process.env.PORT || 3000;
 const PORT = 4000;
-const react_build_file = "../ccc_front/build";
+const react_build_file = path.join(__dirname, "..", "ccc_front", "build");
+
 // app.use(cors());
 app.use(express.static(react_build_file));
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, react_build_file, "index.html"));
+    res.sendFile(path.join(react_build_file, "index.html"));
 });
 
 const wp_list = ["musinsa", "uniqlo"];
@@ -28,7 +29,7 @@ const parse_brand = (url) => {
     }
 };
 
-app.post("/addUrl", (req, res) => {
+app.post("/add_url", (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
 
     const web_platform = parse_brand(req.body.url);
@@ -37,7 +38,7 @@ app.post("/addUrl", (req, res) => {
     console.log(web_platform); // 요청으로 온 데이터의 body 속성 출력
     console.log(url); // 요청으로 온 데이터의 body 속성 출력
 
-    // insert_data(web_platform, url);
+    insert_data(web_platform, url);
 
     res.send("url save success");
 });

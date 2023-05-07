@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./js/utils/Layout";
 import Home from "./js/pages/Home";
 import About from "./js/pages/About";
-import AddUrl from "./js/pages/AddUrl";
+import AddUrl from "./js/pages/Add_url";
 import Urls from "./js/pages/Urls";
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/about" element={<About />} />
-                    <Route exact path="/addurl" element={<AddUrl />} />
+                    <Route exact path="/add_url" element={<AddUrl />} />
                     <Route exact path="/urls" element={<Urls />} />
                 </Routes>
             </Layout>
