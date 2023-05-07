@@ -14,16 +14,30 @@ const urls = [
     "https://tv16.avsee.in/bbs/board.php?bo_table=javc&wr_id=1126970",
 ];
 
+
 const OpenInNewTab = ({ url }) => {
     const handleClick = (event) => {
         event.preventDefault();
         window.open(url, "_blank");
     };
 
+    const truncatedUrl = `${url.slice(-15)}`;
+
     return (
-        <div style={{ fontSize: "30px" }}>
-            <a href={url} onClick={handleClick}>
-                {url}
+        <div style={{ fontSize: "30px", textAlign: "center" }}>
+            <a
+                href={url}
+                onClick={handleClick}
+                style={{
+                    // textDecoration: "none",
+                    // color: "black",
+                    display: "block",
+                    // textOverflow: "ellipsis",
+                    // overflow: "hidden",
+                    // whiteSpace: "nowrap",
+                }}
+            >
+                {truncatedUrl}
             </a>
         </div>
     );

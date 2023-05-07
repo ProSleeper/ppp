@@ -1,0 +1,35 @@
+{
+    "sheetName": "Sheet1",
+    "headers": [["Brand", "URL", "Product Title"]],
+    "path": {
+        "store": {
+            "day": "../../log/day/",
+            "month": "../../log/month/",
+            "year": "../../log/year/",
+            "sale": "../../sale/"
+        },
+        "urls": "../../list/urls.json",
+        "checkMate": "../../log/check/"
+    },
+    "parse_brand_selector": {
+        "musinsa": {
+            "title": ["span.product_title em"],
+            "price": ["span.txt_price_member.m_list_price", "#goods_price"]
+        },
+        "uniqlo": { "title": ["h2#goodsNmArea"], "price": ["p#salePrice"] },
+        "spao": {
+            "title": [
+                "#contents > div.xans-element-.xans-product.xans-product-detail > div.cboth.detailArea > div.infoArea > div > div > div.prd_info > div.headingArea > div.cboth.detail_name"
+            ],
+            "price": ["#span_product_price_text"]
+        },
+        "elandmall": {
+            "title": [
+                "#content > div > section.cp-detail-main > div.cp-detail-main__inner > div.product__wrapper > div.product-info_wrap > div.title_wrap > strong"
+            ],
+            "price": [
+                "#content > div > section.cp-detail-main > div.cp-detail-main__inner > div.product__wrapper > div.product-info_wrap > div.detail_wrap > div:nth-child(1) > ul > li > div.info_box > span > strong"
+            ]
+        }
+    }
+}
