@@ -3,7 +3,7 @@ TARGET=CCC_DB
 ###########################
 #Library
 ###########################
-MARIA_LIB1=C:\Program Files\MySQL\MySQL Server 8.0\bin
+MARIA_LIB1=/usr/include/mysql/
 MARIA_LIB2=/usr/lib64/mysql
 SSL_LIB=/usr/local/ssl/lib
 
@@ -13,9 +13,8 @@ SSL_LIB=/usr/local/ssl/lib
 CC              = g++
 DEBUG_OPTION    =-g -Wall
 DEFINE          =-DLINUX32
-
 COLOAD_LIBS     =-lnsl\
-                 -lstdc++\
+				 -lstdc++\
                  -lpthread\
                  -ldl\
                  -lmysqlclient\
@@ -23,9 +22,9 @@ COLOAD_LIBS     =-lnsl\
                  -lssl\
                  -lcrypto\
                  -lz\
-                 -std=c++11\
+				 -std=c++11\
 
-COLIB_PATH      =-I$(MARIA_LIB1) -L$(MARIA_LIB2) -L$(SSL_LIB)
+COLIB_PATH      = -I$(MARIA_LIB1) -L$(MARIA_LIB2) -L$(SSL_LIB)
 CFLAGS          = -Wno-multichar -Wno-sign-compare
 
 OBJS        = main.o mysql_connector.o
@@ -41,7 +40,7 @@ all: ${TARGET}
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-# main.o: ./main.cpp
-# 	@$(CC) -c $(DEBUG_OPTION) ./main.cpp  $(DEFINE) $(CFLAGS) $(COLIB_PATH) $(COLOAD_LIBS)
+main.o: ./main.cpp
+	@$(CC) -c $(DEBUG_OPTION) ./main.cpp  $(DEFINE) $(CFLAGS) $(COLIB_PATH) $(COLOAD_LIBS)
 
     
