@@ -1,0 +1,14 @@
+g++ -o mysql_connector.o .\mysql_connector.h -I"C:\Program Files\MySQL\Connector C++ 8.0\include" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+g++ -o main.o main.cpp -I"C:\Program Files\MySQL\Connector C++ 8.0\include" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+
+g++ -o main.exe main.cpp -c .\mysql_connector.h -I"C:\Program Files\MySQL\Connector C++ 8.0\include" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+g++ -o mysql_connector.o .\mysql_connector.h mysql_connector.cpp -o main.exe main.cpp -I"C:\Program Files\MySQL\Connector C++ 8.0\include" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+
+
+g++ -o CCC_DB main.cpp mysql_connector.o -I"C:\Program Files\MySQL\Connector C++ 8.0\include" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+
+g++ -o mysql_connector.o .\mysql_connector.h -I"C:\Program Files\MySQL\Connector C++ 8.0\include"
+g++ -o CCC_DB mysql_connector.o main.cpp -I"C:\Program Files\MySQL\Connector C++ 8.0\include\mysqlx" -I"C:\Program Files\MySQL\MySQL Server 8.0\include"
+g++  -o .\mysql_connector.o .\mysql_connector.h .\mysql_connector.cpp -o CCC_DB main.cpp  -I"C:\Program Files\MySQL\Connector C++ 8.0\include\mysqlx" -I"C:\Program Files\MySQL\MySQL Server 8.0\include" -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -lmysql
+
+g++ -o .\mysql_connector.o .\mysql_connector.h .\mysql_connector.cpp -o CCC_DB main.cpp  -I"C:\Program Files\MySQL\Connector C++ 8.0\include\mysqlx" -I"C:\Program Files\MySQL\MySQL Server 8.0\include" -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -lmysql
