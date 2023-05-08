@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 
     MysqlConnector *mCon = new MysqlConnector(mpcServer, mpcUser, mpcPassword, mpcDatabase);
     char cQuery[512];
-    char cSelectDataAll[] = "select * from ccc";
+    char cSelectDataAll[] = "select * from product_url";
 
     char cWhere[128];
     int nFindNumber = 1;

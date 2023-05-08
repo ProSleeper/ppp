@@ -3,8 +3,10 @@ TARGET=CCC_DB
 ###########################
 #Library
 ###########################
-MARIA_LIB1=/usr/include/mysql/
-MARIA_LIB2=/usr/lib64/mysql
+#MARIA_LIB1=/usr/include/mysql
+MARIA_LIB1=/data/data/com.termux/files/usr/include/mariadb
+#MARIA_LIB2=/usr/lib64/mysql
+MARIA_LIB2=/data/data/com.termux/files/usr/lib/mysql
 SSL_LIB=/usr/local/ssl/lib
 
 ###########################
@@ -13,8 +15,9 @@ SSL_LIB=/usr/local/ssl/lib
 CC              = g++
 DEBUG_OPTION    =-g -Wall
 DEFINE          =-DLINUX32
-COLOAD_LIBS     =-lnsl\
-				 -lstdc++\
+COLOAD_LIBS     =-lmysqlclient\
+#COLOAD_LIBS     =-lnsl\
+		 -lstdc++\
                  -lpthread\
                  -ldl\
                  -lmysqlclient\
@@ -22,7 +25,7 @@ COLOAD_LIBS     =-lnsl\
                  -lssl\
                  -lcrypto\
                  -lz\
-				 -std=c++11\
+		 -std=c++11\
 
 COLIB_PATH      = -I$(MARIA_LIB1) -L$(MARIA_LIB2) -L$(SSL_LIB)
 CFLAGS          = -Wno-multichar -Wno-sign-compare
