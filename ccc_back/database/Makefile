@@ -41,7 +41,7 @@ all: ${TARGET}
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-main.o: ./main.cpp
-	@$(CC) -c $(DEBUG_OPTION) ./main.cpp  $(DEFINE) $(CFLAGS) $(COLIB_PATH) $(COLOAD_LIBS)
+#main.o: ./main.cpp
+#	@$(CC) -c $(DEBUG_OPTION) ./main.cpp  $(DEFINE) $(CFLAGS) $(COLIB_PATH) $(COLOAD_LIBS)
 
     
