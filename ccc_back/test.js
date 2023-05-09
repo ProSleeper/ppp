@@ -1,6 +1,6 @@
 const { spawn } = require("child_process");
 const iconv = require("iconv-lite");
-const child = spawn("./mycppapp", ["모듈", "데이터"]);
+const child = spawn("./database/CCC_DB", ["ip", "port"]);
 
 child.stdout.on("data", (data) => {
     console.log(`stdout: ${iconv.decode(data, "euc-kr")}`);

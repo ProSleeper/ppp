@@ -14,6 +14,8 @@ CC              = g++
 DEBUG_OPTION    =-g -Wall
 DEFINE          =-DLINUX32
 COLOAD_LIBS     =-lmysqlclient\
+				-lstdc++\
+				-std=c++11\
 #COLOAD_LIBS     =-lnsl\
 		 -lstdc++\
                  -lpthread\

@@ -1,16 +1,12 @@
 #include "mysql_connector.h"
 
-MysqlConnector::MysqlConnector(const char *pcServer, const char *pcUser, const char *pcPassword, const char *pcDatabase) {
-    strcpy(mpcServer, pcServer);
-    strcpy(mpcUser, pcUser);
-    strcpy(mpcPassword, pcPassword);
-    strcpy(mpcDatabase, pcDatabase);
-
+MysqlConnector::MysqlConnector(const string strServer, const string strUser, const string strPassword, const string strDatabase)
+    : mstrServer(strServer), mstrUser(strUser), mstrPassword(strPassword), mstrDatabase(strDatabase) {
     // first of all create a mysql instance and initialize the variables within
     mpConn = mysql_init(NULL);
 
     // connect to the database with the details attached.
-    if (!mysql_real_connect(mpConn, mpcServer, mpcUser, mpcPassword, mpcDatabase, 0, NULL, 0)) {
+    if (!mysql_real_connect(mpConn, mstrServer.c_str(), mstrUser.c_str(), mstrPassword.c_str(), mstrDatabase.c_str(), 0, NULL, 0)) {
         printf("Conection error : %s\n", mysql_error(mpConn));
         exit(1);
     }
@@ -21,7 +17,66 @@ MysqlConnector::~MysqlConnector() {
     mysql_close(mpConn);
 }
 
-bool MysqlConnector::HowNameMethod(char *sql_query) {
+bool MysqlConnector::Insert(const string strQuery) { return SendQuery(strQuery); }
+
+bool MysqlConnector::Update(const string strQuery) { return SendQuery(strQuery); }
+
+bool MysqlConnector::Delete(const string strQuery) { return SendQuery(strQuery); }
+
+bool MysqlConnector::SendQuery(const string strQuery) {
+    if (mysql_query(mpConn, strQuery.c_str())) {
+        printf("MySQL query error : %s\n", mysql_error(mpConn));
+        return false;
+    }
+    if ((mpResults = mysql_use_result(mpConn)) != NULL) {
+        munColumnLength = mysql_num_fields(mpResults);
+    }
+    return true;
+}
+
+const vector<ResultSet *> *MysqlConnector::Select(const string strQuery) {
+    SendQuery(strQuery);
+    if (mpResults != NULL) {
+        while (mRow = mysql_fetch_row(mpResults)) {
+            for (int i = 0; i < munColumnLength; i++) {
+                printf("%s ", mRow[i]);
+            }
+            printf("\n");
+        }
+        mysql_free_result(mpResults);
+    }
+    munColumnLength = 0;
+}
+
+// 기존에 사용하던 기본적인 쿼리 작동여부 테스트 코드
+/*
+bool MysqlConnector::SendQuery(const string sql_query) {
+    if (mysql_query(mpConn, sql_query.c_str())) {
+        printf("MySQL query error : %s\n", mysql_error(mpConn));
+        return false;
+    }
+    if ((mpResults = mysql_use_result(mpConn)) != NULL) {
+        munColumnLength = mysql_num_fields(mpResults);
+    }
+    return true;
+}
+
+void MysqlConnector::PrintQuery() {
+    if (mpResults != NULL) {
+        while (mpRow = mysql_fetch_row(mpResults)) {
+            for (int i = 0; i < munColumnLength; i++) {
+                printf("%s ", mpRow[i]);
+            }
+            printf("\n");
+        }
+        mysql_free_result(mpResults);
+    }
+
+    munColumnLength = 0;
+}
+
+// 쿼리 실행 여부를 테스트하는 함수
+bool MysqlConnector::HowNameMethod(const string sql_query) {
     if (SendQuery(sql_query)) {
         PrintQuery();
         return true;
@@ -29,38 +84,17 @@ bool MysqlConnector::HowNameMethod(char *sql_query) {
     return false;
 }
 
-bool MysqlConnector::SendQuery(char *sql_query) {
-    if (mysql_query(mpConn, sql_query)) {
-        printf("MySQL query error : %s\n", mysql_error(mpConn));
-        return false;
-    }
-    mpResults = mysql_use_result(mpConn);
-    munColumnLength = mysql_num_fields(mpResults);
-    return true;
-}
 
-void MysqlConnector::PrintQuery() {
-    while ((mpRow = mysql_fetch_row(mpResults)) != NULL) {
-        for (int i = 0; i < munColumnLength; i++) {
-            printf("%s ", mpRow[i]);
-        }
-        printf("\n");
-    }
 
-    mysql_free_result(mpResults);
-    munColumnLength = 0;
-}
-
+// select 후 결과값을 출력하는건데 추후에 json형식으로 변경하는 코드도 필요할듯.
 const std::vector<ResultSet *> *MysqlConnector::GetResultSet() {
-    ResultSet *tempRS;
-    char **tempColumn;
-    char *tempStr;
+    ResultSet *tempRS = new ResultSet;
+    string *tempColumn;
+    string tempStr;
     while ((mpRow = mysql_fetch_row(mpResults)) != NULL) {
-        tempRS = new ResultSet;
-        tempColumn = new char *[munColumnLength];
+        tempColumn = new string[munColumnLength];
         for (int j = 0; j < munColumnLength; j++) {
-            tempStr = new char[strlen(mpRow[j]) + 1];
-            strcpy(tempStr, mpRow[j]);
+            tempStr = mpRow[j];
             tempColumn[j] = tempStr;
         }
         tempRS->ppstrResult = tempColumn;
@@ -71,3 +105,4 @@ const std::vector<ResultSet *> *MysqlConnector::GetResultSet() {
     munColumnLength = 0;
     return &mVector;
 }
+*/

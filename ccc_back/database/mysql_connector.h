@@ -6,34 +6,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <cstring>
+#include <string>
 #include <vector>
 
+using namespace std;
+
 typedef struct {
-    char **ppstrResult;
+    string *pstrResult;
     unsigned int nLen;
 } ResultSet;
 
 class MysqlConnector {
    public:
-    MysqlConnector(const char *pcServer, const char *pcUser, const char *pcPassword, const char *pcDatabase);
+    MysqlConnector(const string strServer, const string strUser, const string strPassword, const string strDatabase);
     ~MysqlConnector();
 
-    bool HowNameMethod(char *sql_query);
-    bool SendQuery(char *sql_query);
+    bool Insert(const string strQuery);
+    const vector<ResultSet *> *Select(const string strQuery);
+    bool Update(const string strQuery);
+    bool Delete(const string strQuery);
+
+    bool SendQuery(const string strQuery);
+    /*
+    bool HowNameMethod(const string sql_query);
+    bool SendQuery(const string sql_query);
     void PrintQuery();
     const std::vector<ResultSet *> *GetResultSet();
-
+    */
    private:
-    char mpcServer[64];
-    char mpcUser[64];
-    char mpcPassword[64];
-    char mpcDatabase[64];
+    const string mstrServer;
+    const string mstrUser;
+    const string mstrPassword;
+    const string mstrDatabase;
 
-    std::vector<ResultSet *> mVector;
+    std::vector<ResultSet *> m_result_list;
     MYSQL *mpConn;         // the connection
     MYSQL_RES *mpResults;  // the results
-    MYSQL_ROW mpRow;       // the results row (line by line)
+    MYSQL_ROW mRow;        // the results row (line by line)
     unsigned int munColumnLength;
 };
 
