@@ -13,27 +13,14 @@ SSL_LIB=/usr/local/ssl/lib
 CC              = g++
 DEBUG_OPTION    =-g -Wall
 DEFINE          =-DLINUX32
-COLOAD_LIBS     =-lmysqlclient\
-				-lstdc++\
-				-std=c++11\
-#COLOAD_LIBS     =-lnsl\
-		 -lstdc++\
-                 -lpthread\
-                 -ldl\
-                 -lmysqlclient\
-                 -lm\
-                 -lssl\
-                 -lcrypto\
-                 -lz\
-		 -std=c++11\
-
-COLIB_PATH      = -I$(MARIA_LIB1) -L$(MARIA_LIB2) -L$(SSL_LIB)
-CFLAGS          = -Wno-multichar -Wno-sign-compare
+COLOAD_LIBS     =-lmysqlclient
+COLIB_PATH      =-I$(MARIA_LIB1) -L$(MARIA_LIB2) -L$(SSL_LIB)
+CXXFLAGS        =-std=c++11 -Wno-multichar -Wno-sign-compare
 
 OBJS        = main.o mysql_connector.o
-$(TARGET)  :   $(OBJS)
-	@$(CC) -o $(TARGET) $(DEBUG_OPTION) $(CFLAGS) $(OBJS) $(COLIB_PATH) $(COLOAD_LIBS)
 
+$(TARGET)  :   $(OBJS)
+	@$(CC) -o $(TARGET) $(DEBUG_OPTION) $(CXXFLAGS) $(OBJS) $(COLIB_PATH) $(COLOAD_LIBS)
 
 all: ${TARGET}
 	@echo "****************************"
