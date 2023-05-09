@@ -3,8 +3,10 @@ TARGET=CCC_DB
 ###########################
 #Library
 ###########################
-MARIA_LIB1=/usr/include/mariadb
-MARIA_LIB2=/usr/lib64/mysql
+#MARIA_LIB1=/usr/include/mysql
+MARIA_LIB1=/data/data/com.termux/files/usr/include/mariadb
+#MARIA_LIB2=/usr/lib64/mysql
+MARIA_LIB2=/data/data/com.termux/files/usr/lib/mysql
 SSL_LIB=/usr/local/ssl/lib
 
 ###########################
