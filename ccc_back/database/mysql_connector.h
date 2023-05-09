@@ -1,8 +1,8 @@
 #ifndef __MS_MYSQL_CONNECTOR_H__
 #define __MS_MYSQL_CONNECTOR_H__
 
-#include <mysql/mysql.h>
-//#include <mariadb/mysql.h> //ter
+//#include <mysql/mysql.h>
+#include <mariadb/mysql.h> //termux
 #include <stdio.h>
 #include <stdlib.h>
 

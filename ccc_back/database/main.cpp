@@ -17,7 +17,7 @@ void ltrim(std::string &str) {
 int main(int argc, char *argv[]) {
     json json_object = {{"key", "value"}};
     printf("%s\n", json_object.dump().c_str());
-    return 0;
+  //  return 0;
 
     const string strServer = "localhost";  // where the mysql database is
     const string strUser = "u0_a177";      // the root user of mysql
@@ -29,8 +29,8 @@ int main(int argc, char *argv[]) {
     MysqlConnector *mCon = new MysqlConnector(strServer, strUser, strPassword, strDatabase);
     string strQuery;
     // string strSelectDataAll = "select * from product_url";
-    // string strInsertData = "insert into product_url(brand, url) values('" + strArgv1 + "', '" + strArgv2 + "')";
-
+    string strInsertData = "insert into product_url(brand, url) values('" + strArgv1 + "', '" + strArgv2 + "')";
+/*
     while (true) {
         cin >> strQuery;
         ltrim(strQuery);
@@ -38,8 +38,8 @@ int main(int argc, char *argv[]) {
         strQuery.find("insert");
         mCon->Select(strQuery);
     }
-
-    // mCon->Insert(strInsertData);
+*/
+    mCon->Insert(strInsertData);
     // mCon->Select(strSelectDataAll);
 
     // mCon->SendQuery(cQuery);

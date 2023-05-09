@@ -3,14 +3,8 @@ TARGET=CCC_DB
 ###########################
 #Library
 ###########################
-#UNAME := $(uname -o)
-#ifneq ($(UNAME), Android)
-#	MARIA_LIB1=/data/data/com.termux/files/usr/include/mariadb
-#	MARIA_LIB2=/data/data/com.termux/files/usr/lib/mysql
-#else
-	MARIA_LIB1=/usr/include/mariadb
-	MARIA_LIB2=/usr/lib64/mysql
-#endif
+MARIA_LIB1=/usr/include/mariadb
+MARIA_LIB2=/usr/lib64/mysql
 SSL_LIB=/usr/local/ssl/lib
 
 ###########################
