@@ -1,4 +1,7 @@
 #include "mysql_connector.h"
+// #include <iostream>
+
+// using namespace std;
 
 MysqlConnector::MysqlConnector(const string strServer, const string strUser, const string strPassword, const string strDatabase)
     : mstrServer(strServer), mstrUser(strUser), mstrPassword(strPassword), mstrDatabase(strDatabase) {
@@ -17,36 +20,82 @@ MysqlConnector::~MysqlConnector() {
     mysql_close(mpConn);
 }
 
-bool MysqlConnector::Insert(const string strQuery) { return SendQuery(strQuery); }
+bool MysqlConnector::Insert(const ProductUrl& data) {
+    string strInsertQuery = "insert into product_url(brand, url) values('" + data.brand + "', '" + data.url + "')";
+    return SendQuery(strInsertQuery); 
+}
 
-bool MysqlConnector::Update(const string strQuery) { return SendQuery(strQuery); }
+bool MysqlConnector::Update(const ProductUrl& data) {
+    string strUpdateQuery = "update product_url set brand = '" + data.brand + "' where url = '" + data.url + "'";
+     return SendQuery(strUpdateQuery); }
 
-bool MysqlConnector::Delete(const string strQuery) { return SendQuery(strQuery); }
+bool MysqlConnector::Delete(const ProductUrl& data) { 
+    string strDeleteQuery = "delete from product_url where url = '" + data.url + "'";
+    return SendQuery(strDeleteQuery); }
 
 bool MysqlConnector::SendQuery(const string strQuery) {
-    if (mysql_query(mpConn, strQuery.c_str())) {
+    if (mysql_query(mpConn, strQuery.c_str()) == -1) {
         printf("MySQL query error : %s\n", mysql_error(mpConn));
         return false;
-    }
-    if ((mpResults = mysql_use_result(mpConn)) != NULL) {
-        munColumnLength = mysql_num_fields(mpResults);
     }
     return true;
 }
 
-const vector<ResultSet *> *MysqlConnector::Select(const string strQuery) {
-    SendQuery(strQuery);
-    if (mpResults != NULL) {
+std::vector<ProductUrl *>* MysqlConnector::Select(const string strQuery) {
+    string find_key = "";
+    if (strQuery != "") {
+        find_key = "where url = '" + strQuery + "'";
+    }
+    string strSelectQuery = "select * from product_url " + find_key;
+    SendQuery(strSelectQuery);
+
+    if ((mpResults = mysql_use_result(mpConn)) != NULL) {
+        munColumnLength = mysql_num_fields(mpResults);
         while (mRow = mysql_fetch_row(mpResults)) {
-            for (int i = 0; i < munColumnLength; i++) {
-                printf("%s ", mRow[i]);
-            }
-            printf("\n");
+            ProductUrl* newRow = new ProductUrl();
+            newRow->brand = mRow[1];
+            newRow->url = mRow[2];
+            m_result_list.emplace_back(newRow);
         }
         mysql_free_result(mpResults);
+        munColumnLength = 0;
     }
-    munColumnLength = 0;
+    return &m_result_list;
 }
+
+//original function
+// const vector<ResultSet *> *MysqlConnector::Select(const string strQuery) {
+//     string find_key = "";
+//     if (strQuery != "") {
+//         find_key = "where url = '" + strQuery + "'";
+//     }
+//     string strSelectAllQuery = "select * from product_url " + find_key;
+//     SendQuery(strSelectAllQuery);
+//     if (mpResults != NULL) {
+//         while (mRow = mysql_fetch_row(mpResults)) {
+//             for (int i = 0; i < munColumnLength; i++) {
+//                 printf("%s ", mRow[i]);
+//             }
+//             printf("\n");
+//         }
+//         mysql_free_result(mpResults);
+//     }
+//     munColumnLength = 0;
+// }
+
+// const vector<ResultSet *> *MysqlConnector::TotalSelect(const string strQuery) {
+//     SendQuery(strQuery);
+//     if (mpResults != NULL) {
+//         while (mRow = mysql_fetch_row(mpResults)) {
+//             for (int i = 0; i < munColumnLength; i++) {
+//                 printf("%s ", mRow[i]);
+//             }
+//             printf("\n");
+//         }
+//         mysql_free_result(mpResults);
+//     }
+//     munColumnLength = 0;
+// }
 
 // 기존에 사용하던 기본적인 쿼리 작동여부 테스트 코드
 /*

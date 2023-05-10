@@ -1,8 +1,13 @@
 #ifndef __MS_MYSQL_CONNECTOR_H__
 #define __MS_MYSQL_CONNECTOR_H__
 
-//#include <mysql/mysql.h>
-#include <mariadb/mysql.h> //termux
+#ifdef __ANDROID__
+    #include <mariadb/mysql.h> //termux
+#else
+    #include <mysql/mysql.h> //linux
+#endif
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,21 +16,25 @@
 
 using namespace std;
 
-typedef struct {
-    string *pstrResult;
-    unsigned int nLen;
-} ResultSet;
+typedef struct p {
+    string brand;
+    string url;
+} ProductUrl;
+
+// typedef struct {
+//     string *pstrResult;
+//     unsigned int nLen;
+// } ResultSet;
 
 class MysqlConnector {
    public:
     MysqlConnector(const string strServer, const string strUser, const string strPassword, const string strDatabase);
     ~MysqlConnector();
 
-    bool Insert(const string strQuery);
-    const vector<ResultSet *> *Select(const string strQuery);
-    bool Update(const string strQuery);
-    bool Delete(const string strQuery);
-
+    bool Insert(const ProductUrl& data);
+    std::vector<ProductUrl *> *Select(const string strQuery);
+    bool Update(const ProductUrl &data);
+    bool Delete(const ProductUrl& data);
     bool SendQuery(const string strQuery);
     /*
     bool HowNameMethod(const string sql_query);
@@ -33,13 +42,14 @@ class MysqlConnector {
     void PrintQuery();
     const std::vector<ResultSet *> *GetResultSet();
     */
+
    private:
     const string mstrServer;
     const string mstrUser;
     const string mstrPassword;
     const string mstrDatabase;
 
-    std::vector<ResultSet *> m_result_list;
+    std::vector<ProductUrl *> m_result_list;
     MYSQL *mpConn;         // the connection
     MYSQL_RES *mpResults;  // the results
     MYSQL_ROW mRow;        // the results row (line by line)
