@@ -52,7 +52,7 @@ child.stderr.on("data", (data) => {
 });
 
 //const request_data = data(behavior.insert, "ums", "ftp");
-const request_data = data(behavior.update, "guanggo", "http");
+const request_data = data(behavior.update, "ddudang", "http");
 //const request_data = data(behavior.delete, "", "http");
 //const request_data = data(behavior.select, "", "");
 
@@ -60,9 +60,10 @@ const request_data = data(behavior.update, "guanggo", "http");
 // console.log(send_data);
 const WriteTo = (json_data) => {
     child.stdin.write(`${json_data}\n`);
+    // console.log("node_to_cpp_print: " + json_data);
 }
 
-WriteTo(JSON.stringify(request_data));
+// WriteTo(JSON.stringify(request_data));
 
 
 child.on("exit", (code, signal) => {

@@ -52,7 +52,6 @@ int main(int argc, char *argv[]) {
     json recv_obj;
     json send_obj;
     RequestObj ro;
-
     getline(cin, request);
     recv_obj = json::parse(request);
     from_json(recv_obj, ro);
