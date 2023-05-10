@@ -51,7 +51,7 @@ std::vector<ProductUrl *>* MysqlConnector::Select(const string strQuery) {
 
     if ((mpResults = mysql_use_result(mpConn)) != NULL) {
         munColumnLength = mysql_num_fields(mpResults);
-        while (mRow = mysql_fetch_row(mpResults)) {
+        while ((mRow = mysql_fetch_row(mpResults)) != NULL) {
             ProductUrl* newRow = new ProductUrl();
             newRow->brand = mRow[1];
             newRow->url = mRow[2];

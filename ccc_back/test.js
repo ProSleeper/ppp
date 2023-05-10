@@ -31,7 +31,6 @@ const data = (behavior, brand , url) => {
 // });
 child.stdout.on("data", (data) => {
     const decodedData = iconv.decode(data, "utf8");
-    
     try {
          // Select 결과 출력
         const response_data = JSON.parse(decodedData);
@@ -40,19 +39,22 @@ child.stdout.on("data", (data) => {
         if (error.name === "SyntaxError") {
             // console.log("신택스 에러")
             console.log(decodedData);
-        }
+	    return; 
+	}
+	console.log(error);
     }
    
 
-    // console.log(decodedData);
 });
 
 child.stderr.on("data", (data) => {
     iconv.console.error(`stderr: ${iconv.decode(data, "utf8")}`);
 });
 
-// const send_data = data(behavior.insert, "ums", "ftp");
-const request_data = data(behavior.select, "", "");
+//const request_data = data(behavior.insert, "ums", "ftp");
+const request_data = data(behavior.update, "guanggo", "http");
+//const request_data = data(behavior.delete, "", "http");
+//const request_data = data(behavior.select, "", "");
 
 
 // console.log(send_data);

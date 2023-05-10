@@ -28,7 +28,7 @@ void from_json(const json& j, RequestObj& r) {
     r.p.url = j["data"]["url"];
 }
 
-bool result_to_json(json& j, const std::vector<ProductUrl*>* pResults){
+void result_to_json(json& j, const std::vector<ProductUrl*>* pResults){
     // if(pResults != NULL){
         MYSQL_ROW mRow;
         for(auto row : *pResults){
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
         }
     }
     else if(ro.b == "SELECT"){
-        // cout << ro.p.url << endl;
+        //cout << ro.p.url << endl;
         result_list = mCon->Select(ro.p.url);
         result_to_json(send_obj, result_list);
         cout << send_obj << endl;
