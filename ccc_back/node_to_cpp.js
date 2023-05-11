@@ -43,8 +43,6 @@ child.stdout.on("data", (data) => {
 	}
 	console.log(error);
     }
-   
-
 });
 
 child.stderr.on("data", (data) => {
