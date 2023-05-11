@@ -35,7 +35,7 @@ class MysqlConnector {
     std::vector<ProductUrl *> *Select(const string strQuery);
     bool Update(const ProductUrl &data);
     bool Delete(const ProductUrl& data);
-    bool SendQuery(const string strQuery);
+    bool SendQuery(const string str_url);
     /*
     bool HowNameMethod(const string sql_query);
     bool SendQuery(const string sql_query);

@@ -47,7 +47,9 @@ std::vector<ProductUrl *>* MysqlConnector::Select(const string strQuery) {
         find_key = "where url = '" + strQuery + "'";
     }
     string strSelectQuery = "select * from product_url " + find_key;
-    SendQuery(strSelectQuery);
+    if (!SendQuery(strSelectQuery)) {
+        return false;
+    }
 
     if ((mpResults = mysql_use_result(mpConn)) != NULL) {
         munColumnLength = mysql_num_fields(mpResults);
