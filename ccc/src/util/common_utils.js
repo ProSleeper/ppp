@@ -15,7 +15,7 @@ const fetchHtml = (url) => {
     });
 };
 
-const extractData = (html, other_data, elem) => {
+const extractData = (html, product_info_data, brand_selector) => {
     const $ = cheerio.load(html);
 
     const findSelector = (selectors, cb) => {
@@ -27,10 +27,10 @@ const extractData = (html, other_data, elem) => {
     };
 
     return {
-        brand: other_data.parse_brand,
-        url: other_data.url,
-        title: findSelector(elem.title, (str) => str.trim()),
-        price: findSelector(elem.price, removeCommas),
+        brand: product_info_data.brand,
+        url: product_info_data.url,
+        title: findSelector(brand_selector.title, (str) => str.trim()),
+        price: findSelector(brand_selector.price, removeCommas),
     };
 };
 

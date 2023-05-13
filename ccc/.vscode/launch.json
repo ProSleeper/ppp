@@ -11,8 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${cwd}/${fileDirname}/${fileBasename}",
-            // "program": "${cwd}/src/working/main.js/"
+            // "program": "${cwd}/${fileDirname}/${fileBasename}",
+            "program": "${cwd}/src/working/main.js/"
             // "program": "${file}"
         },
     ]

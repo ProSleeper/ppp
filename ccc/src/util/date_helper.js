@@ -27,6 +27,10 @@ const HHMM = (date) => {
     return hh + ":" + mm;
 };
 
+const HH = (date) => {
+    var hh = date.getHours();
+    return hh;
+};
 const YYYYMMDD = (date) => {
     var dd = pad(date.getDate(), 2);
 
@@ -61,6 +65,7 @@ module.exports = {
     YYYYMMDDHHMMSS,
     YYYYMMDDHHMM,
     HHMM,
+    HH, //not padding ex) 1시 -> 01 아니고 1 로 표기
     YYYYMM,
     YYYYMMDD,
     YESTERDAY,

@@ -32,7 +32,7 @@ const insert_product_data = (brand, url) => {
     });
 };
 
-const select_product_data = async (brand = "", url = "") => {
+const select_product_data = (brand = "", url = "") => {
     const request_data = data(behavior.select, brand, url);
 
     const result = query_exec(request_data);
