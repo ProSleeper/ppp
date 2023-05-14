@@ -60,7 +60,6 @@ const main = async () => {
             });
         })
     );
-
     // // writeToDaily(data_list);
     WriteToDailyDB(data_list);
 };

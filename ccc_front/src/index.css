@@ -17,6 +17,18 @@ code {
   margin-right: 1rem;
 }
 
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+td {
+  width: 50%;
+  height: 50px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 /*mobile icon margin*/
 @media (max-width: 767px) {
   .nav-link {

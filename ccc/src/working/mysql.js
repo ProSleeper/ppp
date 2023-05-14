@@ -24,15 +24,6 @@ const send_query = (query) => {
     });
 };
 
-// const send_query = async (query) => {
-//     try {
-//         return await send_query(query);
-//     } catch (error) {
-//         console.error(error);
-//         return false;
-//     }
-// };
-
 const insert_data = async (data) => {
     return await send_query(
         `insert into daily_data(brand, title, url, today, time${data.curr_time}_price) values('${data.brand}', '${data.title}', '${data.url}', now(), ${data.price}) on duplicate key update brand = '${data.brand}', title = '${data.title}', today = now(), time${data.curr_time}_price = ${data.price}`

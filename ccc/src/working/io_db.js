@@ -56,13 +56,13 @@ const insert_product_data = async ({ brand, title, url, price }) => {
         }
     });
 
-    if (curr_time === 19) {
+    if (curr_time === 0) {
         const data_list = await new_day_get_old_data();
         WriteToMonthlyDB(data_list);
         console.log(data_list);
     }
 
-    if (curr_time > 19) {
+    if (curr_time > 0) {
         const num = await compare_price(url, curr_time);
         const prev_price = num.result;
         if (prev_price > 0) {

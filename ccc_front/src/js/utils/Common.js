@@ -48,7 +48,7 @@ const device_check = () => {
 
 import { isWindows } from "react-device-detect";
 
-const handleSubmit = (event, url) => {
+const handleSubmit = (event, url, setData) => {
     event && event.preventDefault();
 
     //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
@@ -67,11 +67,12 @@ const handleSubmit = (event, url) => {
     })
         .then((response) => {
             if (response.ok) {
-                return response;
+                return response.json();
             }
             throw new Error("Network response was not ok");
         })
         .then((data) => {
+            setData(data);
             console.log(data);
         })
         .catch((error) => {

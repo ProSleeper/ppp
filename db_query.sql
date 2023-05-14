@@ -6,7 +6,7 @@ use ccc;
 
 CREATE USER 'u0_a177'@'localhost' IDENTIFIED BY 'suzi123';
 
-grant all privileges on ccc.* to ‘u0_a177’@’localhost’;
+grant all privileges on ccc.* to 'u0_a177'@'localhost';
 
 flush privileges;
 
