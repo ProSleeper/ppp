@@ -5,5 +5,11 @@
         "mysql": "^2.18.1",
         "request": "^2.88.2",
         "xlsx": "^0.18.5"
+    },
+    "scripts": {
+        "jest": "jest"
+    },
+    "devDependencies": {
+        "jest": "^29.5.0"
     }
 }
