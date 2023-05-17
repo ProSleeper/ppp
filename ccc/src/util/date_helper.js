@@ -1,6 +1,6 @@
 // dateUtil.js
 const pad = (number, length) => {
-    var str = "" + number;
+    let str = "" + number;
     while (str.length < length) {
         str = "0" + str;
     }
@@ -8,38 +8,38 @@ const pad = (number, length) => {
 };
 
 const YYYYMMDDHHMMSS = (date) => {
-    var ss = pad(date.getSeconds(), 2);
+    const ss = pad(date.getSeconds(), 2);
 
     return YYYYMMDDHHMM(date) + ss;
 };
 
 const YYYYMMDDHHMM = (date) => {
-    var hh = pad(date.getHours(), 2);
-    var mm = pad(date.getMinutes(), 2);
+    const hh = pad(date.getHours(), 2);
+    const mm = pad(date.getMinutes(), 2);
 
     return YYYYMMDD(date) + hh + mm;
 };
 
 const HHMM = (date) => {
-    var hh = pad(date.getHours(), 2);
-    var mm = pad(date.getMinutes(), 2);
+    const hh = pad(date.getHours(), 2);
+    const mm = pad(date.getMinutes(), 2);
 
     return hh + ":" + mm;
 };
 
-const HH = (date) => {
-    var hh = date.getHours();
+const HH = () => {
+    const hh = KST().getHours();
     return hh;
 };
 const YYYYMMDD = (date) => {
-    var dd = pad(date.getDate(), 2);
+    const dd = pad(date.getDate(), 2);
 
     return YYYYMM(date) + dd;
 };
 
 const YYYYMM = (date) => {
-    var yyyy = date.getFullYear().toString();
-    var MM = pad(date.getMonth() + 1, 2);
+    const yyyy = date.getFullYear().toString();
+    const MM = pad(date.getMonth() + 1, 2);
 
     return yyyy + MM;
 };
@@ -47,9 +47,9 @@ const YYYYMM = (date) => {
 const YESTERDAY = (date) => {
     const yesterday = KST();
     yesterday.setDate(date.getDate() - 1);
-    var yyyy = yesterday.getFullYear().toString();
-    var MM = pad(yesterday.getMonth() + 1, 2);
-    var dd = pad(yesterday.getDate(), 2);
+    const yyyy = yesterday.getFullYear().toString();
+    const MM = pad(yesterday.getMonth() + 1, 2);
+    const dd = pad(yesterday.getDate(), 2);
 
     return yyyy + MM + dd;
 };
@@ -61,6 +61,11 @@ const KST = () => {
     return new Date(utc + KR_TIME_DIFF);
 };
 
+const Parse_Day = (today) => {
+    const day = new Date(today);
+    return day.getDate();
+};
+
 module.exports = {
     YYYYMMDDHHMMSS,
     YYYYMMDDHHMM,
@@ -70,4 +75,5 @@ module.exports = {
     YYYYMMDD,
     YESTERDAY,
     KST,
+    Parse_Day,
 };
