@@ -1,4 +1,4 @@
-const daily_data = require("../../../tb/daily_data.js");
+const daily_data = require("../../../entity/daily_data.js");
 const { HH } = require("../../../../util/date_helper.js");
 
 test("class daily_data create", () => {

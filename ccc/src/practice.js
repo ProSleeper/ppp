@@ -1,22 +1,17 @@
 
-
-const aaa = { b: 1 };
-
-// console.log(Object.na);
-
-var DebugLog = function (obj) {
-    for (let key in obj) {
-        console.log(key + ": " + obj[key]);
-    }
+const data_obj = {
+    data: {
+        brand: "musinsa",
+        url: "https://musinsa.com",
+        primary_key: "url",
+    },
 };
 
-class Choco {
-    constructor() {}
-}
+const pk = data_obj.data.primary_key;
+const insert_data = { ...data_obj.data };
+console.log(insert_data);
 
-// DebugLog({ aaa });
-const cc = new da();
+delete insert_data[`${pk}`];
+delete insert_data[`primary_key`];
 
-const bb = function Heim() {};
-
-console.log(cc.constructor.name);
+console.log(insert_data);

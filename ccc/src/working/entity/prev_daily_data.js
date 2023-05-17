@@ -10,6 +10,7 @@ class prev_daily_data {
             //all time var add!
         };
         this.data[`time${HH()}_price`] = price;
+        this.data[`primary_key`] = this.data.url;
     }
 }
 

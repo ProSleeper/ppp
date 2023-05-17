@@ -9,6 +9,7 @@ class monthly_data {
             month: today,
         };
         this.data[`day${Parse_Day(today)}_price`] = price;
+        this.data[`primary_key`] = this.data.url;
     }
 }
 

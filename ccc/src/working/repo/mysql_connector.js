@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     user: "u0_a177",
     password: "suzi123",
     database: "ccc",
-    debug: true,
+    // debug: true,
 });
 
 connection.connect(function (err) {
@@ -13,9 +13,8 @@ connection.connect(function (err) {
         console.error("Error connecting to MariaDB: " + err.stack);
         return;
     }
-    console.log("Connected to MariaDB as id " + connection.threadId);
+    // console.log("Connected to MariaDB as id " + connection.threadId);
 });
-
 //db접속 종료인데 실제 서버를 운영할때는 필요 없다고 봐야겠다.
 // connection.end();
 

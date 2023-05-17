@@ -4,6 +4,7 @@ class url_data {
             brand: brand,
             url: url,
         };
+        this.data[`primary_key`] = this.data.url;
     }
 }
 

@@ -1,4 +1,4 @@
-const { connection } = require("./my.js");
+const { connection } = require("./mysql_connector.js");
 
 /**
  * save(insert&update)
@@ -18,12 +18,19 @@ const { connection } = require("./my.js");
 
 const save = (data_obj) => {
     return new Promise((resolve, reject) => {
+        const primary_key = data_obj.data.primary_key;
+        const update_data = { ...data_obj.data };
+
+        delete update_data[`${primary_key}`];
+        delete update_data["primary_key"];
+        delete data_obj.data["primary_key"];
+
         connection.query(
-            "insert into ? set ? on duplicate key update brand = ?",
-            [data_obj.constructor.name, data_obj, data_obj.brand],
+            `insert into ${data_obj.constructor.name} set ? on duplicate key update ?`,
+            [data_obj.data, update_data],
             function (error, rows, fields) {
                 if (error) reject(error);
-                //db입력 성공 처리.
+                resolve("save ok");
             }
         );
     });
