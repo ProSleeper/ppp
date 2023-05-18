@@ -1,4 +1,5 @@
 const daily_data = require("../../../entity/daily_data.js");
+const prev_daily_data = require("../../../entity/prev_daily_data.js");
 const monthly_data = require("../../../entity/monthly_data.js");
 const sale_data = require("../../../entity/sale_data.js");
 const url_data = require("../../../entity/url_data.js");
