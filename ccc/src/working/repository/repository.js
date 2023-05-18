@@ -7,15 +7,6 @@ const { connection } = require("./mysql_connector.js");
  * remove(delete)
  */
 
-// const save = (data_obj) => {
-//     return new Promise((resolve, reject) => {
-//         connection.query("INSERT INTO url_data set ? ?", data_obj, function (error, rows, fields) {
-//             if (error) reject(error);
-//             console.log(rows);
-//         });
-//     });
-// };
-
 const save = (data_obj) => {
     return new Promise((resolve, reject) => {
         const primary_key = data_obj.data.primary_key;

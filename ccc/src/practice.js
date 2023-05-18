@@ -1,17 +1,7 @@
-
-const data_obj = {
-    data: {
-        brand: "musinsa",
-        url: "https://musinsa.com",
-        primary_key: "url",
-    },
+const Parse_Day = (today) => {
+    const formattedDate = `${today.substring(0, 4)}-${today.substring(4, 6)}-${today.substring(6, 8)}`;
+    const day = new Date(formattedDate);
+    return day.getDate();
 };
 
-const pk = data_obj.data.primary_key;
-const insert_data = { ...data_obj.data };
-console.log(insert_data);
-
-delete insert_data[`${pk}`];
-delete insert_data[`primary_key`];
-
-console.log(insert_data);
+console.log(Parse_Day("20200607"));
