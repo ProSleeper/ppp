@@ -46,7 +46,7 @@ const remove = (data_obj) => {
 
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from daily_data", function (error, rows, fields) {
+        connection.query("select * from sale_data", function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });
@@ -55,7 +55,7 @@ const findAll = () => {
 
 const findByUrl = (url) => {
     return new Promise((resolve, reject) => {
-        connection.query(`select * from daily_data where url = '${url}'`, function (error, rows, fields) {
+        connection.query(`select * from sale_data where url = '${url}'`, function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });

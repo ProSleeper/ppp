@@ -12,7 +12,6 @@ class prev_daily_data {
         };
         for (let index = 0; index < 23; index++) {
             this.data[`time${index}_price`] = null;
-            const element = array[index];
         }
 
         this.data[`time${HH()}_price`] = price;

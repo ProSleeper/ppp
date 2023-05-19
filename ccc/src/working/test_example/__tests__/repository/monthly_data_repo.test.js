@@ -1,17 +1,17 @@
-const daily_data = require("../../../entity/daily_data.js");
-const { save, remove, findByUrl, findAll } = require("../../../repository/daily_data_repo.js");
+const monthly_data = require("../../../entity/monthly_data.js");
+const { save, remove, findByUrl, findAll } = require("../../../repository/monthly_data_repo.js");
 require("./repo.test.js");
 
-test("insert daily_data", async () => {
-    const obj = new daily_data("test", "test_proc", "http://test3.com", "20230511", 13000);
+test("insert monthly_data", async () => {
+    const obj = new monthly_data("test", "test_proc", "http://test3.com", "20230511", 13000);
 
     const result = await save(obj);
     expect(result).toEqual("save ok");
 });
 
-test("update daily_data", async () => {
-    const insert_obj = new daily_data("brand_insert", "title_insert", "http://test4.com", "20230530", 13000);
-    const update_obj = new daily_data("brand_update", "title_update", "http://test4.com", "20230505", 30000);
+test("update monthly_data", async () => {
+    const insert_obj = new monthly_data("brand_insert", "title_insert", "http://test4.com", "20230530", 13000);
+    const update_obj = new monthly_data("brand_update", "title_update", "http://test4.com", "20230505", 30000);
 
     const result1 = await save(insert_obj);
     expect(result1).toEqual("save ok");
@@ -23,8 +23,8 @@ test("update daily_data", async () => {
     expect(result3[0].brand).toEqual("brand_update");
 });
 
-test("delete daily_data", async () => {
-    const obj = new daily_data("test", "test_proc", "http://test6.com", "20230501", 13000);
+test("delete monthly_data", async () => {
+    const obj = new monthly_data("test", "test_proc", "http://test6.com", "20230501", 13000);
 
     const result1 = await save(obj);
     expect(result1).toEqual("save ok");
@@ -33,8 +33,8 @@ test("delete daily_data", async () => {
     expect(result2).toEqual("delete ok");
 });
 
-test("select_one daily_data", async () => {
-    const obj = new daily_data("test", "test_proc", "http://test7.com", "20230502", 13000);
+test("select_one monthly_data", async () => {
+    const obj = new monthly_data("test", "test_proc", "http://test7.com", "20230502", 13000);
     const result1 = await save(obj);
     expect(result1).toEqual("save ok");
 
@@ -42,11 +42,11 @@ test("select_one daily_data", async () => {
     expect(result2[0].title).toEqual("test_proc");
 });
 
-test("select_all daily_data", async () => {
+test("select_all monthly_data", async () => {
     const before_select_count = (await findAll()).length;
 
-    const obj1 = new daily_data("test", "test_proc", "http://test9.com", "20230511", 13000);
-    const obj2 = new daily_data("test", "test_proc", "http://test8.com", "20230501", 13000);
+    const obj1 = new monthly_data("test", "test_proc", "http://test9.com", "20230511", 13000);
+    const obj2 = new monthly_data("test", "test_proc", "http://test8.com", "20230501", 13000);
 
     const result1 = await save(obj1);
     expect(result1).toEqual("save ok");
