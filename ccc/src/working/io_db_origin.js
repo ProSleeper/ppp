@@ -9,10 +9,7 @@ const {
     delete_data,
 } = require("./mysql.js");
 const dateUtil = require("../util/date_helper.js");
-const daily_data = require("./entity/daily_data.js");
-const daily_repo = require("./repository/daily_data_repo.js");
-const url_data = require("./entity/url_data.js");
-const url_repo = require("./repository/url_data_repo.js");
+const request = require("request");
 
 const behavior = {
     insert: "INSERT",
@@ -50,26 +47,29 @@ const WriteToMonthlyDB = (data_list) => {
 };
 
 const insert_product_data = async ({ brand, title, url, price }) => {
-    const curr_yyyymmdd = dateUtil.YYYYMMDD();
-    const obj = new daily_data(brand, title, url, curr_yyyymmdd, price);
+    const request_data = data(behavior.insert, brand, title, url, price);
+    const curr_time = request_data.data.curr_time;
+    await query_exec(request_data).then((result) => {
+        //두 값을 비교해서 다시 db에 입력.
+        if (result !== null) {
+            console.log("ttt" + result);
+        }
+    });
 
-    const result = await daily_repo.save(obj);
-    console.log(result);
-    const curr_time = dateUtil.HH();
-    // if (curr_time === 0) {
-    //     const data_list = await new_day_get_old_data();
-    //     WriteToMonthlyDB(data_list);
-    //     console.log(data_list);
-    // }
+    if (curr_time === 0) {
+        const data_list = await new_day_get_old_data();
+        WriteToMonthlyDB(data_list);
+        console.log(data_list);
+    }
 
-    // if (curr_time > 0) {
-    //     const num = await compare_price(url, curr_time);
-    //     const prev_price = num.result;
-    //     if (prev_price > 0) {
-    //         insert_sale_data(brand, title, url, price, prev_price);
-    //     }
-    // }
-};;
+    if (curr_time > 0) {
+        const num = await compare_price(url, curr_time);
+        const prev_price = num.result;
+        if (prev_price > 0) {
+            insert_sale_data(brand, title, url, price, prev_price);
+        }
+    }
+};
 
 const select_product_data = async (brand = "", url = "") => {
     const request_data = data(behavior.select, brand, url);
@@ -80,17 +80,13 @@ const select_product_data = async (brand = "", url = "") => {
     }
 };
 
-const read_url = async () => {
-    try {
-        return await url_repo.findAll();
-    } catch (error) {
-        console.error(error);
-    }
+const ReadUrl = async () => {
+    return await read_total_url();
 };
 
 module.exports = {
     WriteToDailyDB,
-    read_url,
+    ReadUrl,
     insert_product_data,
     select_product_data,
 };

@@ -1,58 +1,25 @@
 const fs = require("fs");
 const path = require("path");
-const { writeToDaily } = require("./scrap_m&u.js");
-const { WriteToDailyDB, ReadUrl } = require("./io_db.js");
-
-const { fetchHtml, extractData, readJsonData, parse_brand } = require("../util/common_utils.js");
-
+const { WriteToDailyDB, read_url } = require("./io_db.js");
+const { fetchHtml, extractData } = require("../util/common_utils.js");
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/CCC.json"), "utf8"));
-const urls = JSON.parse(fs.readFileSync(path.join(__dirname, config.path.urls), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
-const brands = Object.entries(parse_brand_selector).map(([key]) => {
-    return key;
-});
-
-//ÇÔ¼ö 2°³´Â µ¿ÀÏÇÔ.
-//ÇÏ³ª´Â Promise then
-//ÇÏ³ª´Â async await
-
-// const main = () => {
-//     const total_url = readJsonData(urls);
-//     Promise.all(
-//         total_url.map((url) => {
-//             return new Promise(async (resolve, reject) => {
-//                 try {
-//                     const html = await fetchHtml(url);
-//                     const other_data = {
-//                         url: url,
-//                         parse_brand: parse_brand(brands, url),
-//                     };
-//                     resolve(extractData(html, other_data, parse_brand_selector[other_data.parse_brand]));
-//                 } catch (error) {
-//                     console.error("Error:", error);
-//                 }
-//             });
-//         })
-//     ).then((data_list) => {
-//         writeToDaily(data_list);
-//     });
-// };
-
 const main = async () => {
-    const total_url = await ReadUrl();
+    const total_url = await read_url();
     const data_list = await Promise.all(
         total_url.map((data) => {
             return new Promise(async (resolve, reject) => {
                 try {
                     const html = await fetchHtml(data.url);
                     const product_info_data = {
+                        // ì´ ë¶€ë¶„ì´ dtoê°€ ë˜ì–´ì•¼í• ë“¯.
                         url: data.url,
                         brand: data.brand,
                     };
-                    //¾Æ·¡ extractData¸¦ ÇßÀ» ¶§ ÁÖ¼Ò°¡ Àß¸øµÆ°Å³ª ÆäÀÌÁö°¡ ¾ø¾îÁö´Â °æ¿ì brand, title, price µî µ¥ÀÌÅÍ¸¦ °¡Áö°í ¿ÀÁö ¸øÇÑ´Ù.
-                    //ÀÌ¶§ extractDataÀÇ ¹ÝÈ¯°ªÀº °´Ã¼¶ó¼­ ´çÀåÀº ¿¡·¯°¡ ¾øÁö¸¸ ÀÌ °ªÀ» »ç¿ëÇÏ´Â ºÎºÐ¿¡¼­ ¿¡·¯°¡ ¹ß»ýÇÑ´Ù.
-                    //±×·¯¹Ç·Î extractDataÀÇ °ªÀ» ¹Þ¾Æ¼­ brand, title, priceµîÀ» Ã¼Å©ÇØ¼­ ¾ø°Å³ª ¹®Á¦°¡ ÀÖÀ¸¸é rejectºÎºÐÀ¸·Î º¸³»¼­ ¹è¿­¿¡ ¾È³Ö¾îÁöµµ·Ï ÄÚµå º¯°æÀÌ ÇÊ¿äÇÑ°Í °°´Ù. ÃßÈÄ ¼öÁ¤ÇÏÀÚ.
+                    //ì•„ëž˜ extractDataë¥¼ í–ˆì„ ë•Œ ì£¼ì†Œê°€ ìž˜ëª»ëê±°ë‚˜ íŽ˜ì´ì§€ê°€ ì—†ì–´ì§€ëŠ” ê²½ìš° brand, title, price ë“± ë°ì´í„°ë¥¼ ê°€ì§€ê³  ì˜¤ì§€ ëª»í•œë‹¤.
+                    //ì´ë•Œ extractDataì˜ ë°˜í™˜ê°’ì€ ê°ì²´ë¼ì„œ ë‹¹ìž¥ì€ ì—ëŸ¬ê°€ ì—†ì§€ë§Œ ì´ ê°’ì„ ì‚¬ìš©í•˜ëŠ” ë¶€ë¶„ì—ì„œ ì—ëŸ¬ê°€ ë°œìƒí•œë‹¤.
+                    //ê·¸ëŸ¬ë¯€ë¡œ extractDataì˜ ê°’ì„ ë°›ì•„ì„œ brand, title, priceë“±ì„ ì²´í¬í•´ì„œ ì—†ê±°ë‚˜ ë¬¸ì œê°€ ìžˆìœ¼ë©´ rejectë¶€ë¶„ìœ¼ë¡œ ë³´ë‚´ì„œ ë°°ì—´ì— ì•ˆë„£ì–´ì§€ë„ë¡ ì½”ë“œ ë³€ê²½ì´ í•„ìš”í•œê²ƒ ê°™ë‹¤. ì¶”í›„ ìˆ˜ì •í•˜ìž.
                     resolve(extractData(html, product_info_data, parse_brand_selector[product_info_data.brand]));
                 } catch (error) {
                     console.error("Error:", error);
@@ -60,7 +27,6 @@ const main = async () => {
             });
         })
     );
-    // // writeToDaily(data_list);
     WriteToDailyDB(data_list);
 };
 

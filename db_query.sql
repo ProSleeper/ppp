@@ -136,7 +136,6 @@ CREATE TABLE sale_data (
 
 
 
-
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/595039');
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/3128322');
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/3128245');

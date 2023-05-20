@@ -7,20 +7,20 @@ const pad = (number, length) => {
     return str;
 };
 
-const YYYYMMDDHHMMSS = (date) => {
+const YYYYMMDDHHMMSS = (date = KST()) => {
     const ss = pad(date.getSeconds(), 2);
 
     return YYYYMMDDHHMM(date) + ss;
 };
 
-const YYYYMMDDHHMM = (date) => {
+const YYYYMMDDHHMM = (date = KST()) => {
     const hh = pad(date.getHours(), 2);
     const mm = pad(date.getMinutes(), 2);
 
     return YYYYMMDD(date) + hh + mm;
 };
 
-const HHMM = (date) => {
+const HHMM = (date = KST()) => {
     const hh = pad(date.getHours(), 2);
     const mm = pad(date.getMinutes(), 2);
 
@@ -31,20 +31,20 @@ const HH = () => {
     const hh = KST().getHours();
     return hh;
 };
-const YYYYMMDD = (date) => {
+const YYYYMMDD = (date = KST()) => {
     const dd = pad(date.getDate(), 2);
 
     return YYYYMM(date) + dd;
 };
 
-const YYYYMM = (date) => {
+const YYYYMM = (date = KST()) => {
     const yyyy = date.getFullYear().toString();
     const MM = pad(date.getMonth() + 1, 2);
 
     return yyyy + MM;
 };
 
-const YESTERDAY = (date) => {
+const YESTERDAY = (date = KST()) => {
     const yesterday = KST();
     yesterday.setDate(date.getDate() - 1);
     const yyyy = yesterday.getFullYear().toString();
