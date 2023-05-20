@@ -1,5 +1,5 @@
 class sale_data {
-    constructor({ brand, title, url, change_date, sale_price, prev_price }) {
+    constructor(brand, title, url, change_date, sale_price, prev_price) {
         this.data = {
             brand: brand,
             title: title,

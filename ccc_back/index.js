@@ -1,12 +1,10 @@
 const path = require('path');
 const express = require("express");
 const app = express();
-//const { WriteTo } = require("./node_to_cpp");
-const { insert_product_data, select_product_data } = require("./test");
-
 const cors = require("cors");
+const service = require("./src/service/service.js");
+
 app.use(cors());
-// const PORT = process.env.PORT || 3000;
 const PORT = 4000;
 const react_build_file = path.join(__dirname, "..", "ccc_front", "build");
 
@@ -19,19 +17,10 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(react_build_file, "index.html"));
 });
 
-const wp_list = ["musinsa", "uniqlo"];
-
-const parse_brand = (url) => {
-    for (const brand of wp_list) {
-        const brandRegex = new RegExp(`${brand}`, "g");
-        if (brandRegex.test(url)) {
-            return brand;
-        }
-    }
-};
-
 app.post("/add_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
+    const receive_url = req.body.url;
+    const result = await service.add_url(receive_url);
     // try {
     //     const brand = parse_brand(req.body.url);
     //     const url = req.body.url;
@@ -39,8 +28,8 @@ app.post("/add_url", async (req, res) => {
     // } catch (error) {
     //     console.log(error);
     // }
-    const result = await select_product_data();
-    res.send(result);
+    // const result = await select_product_data();
+    // res.send(result);
 
     // console.log(web_platform); // 요청으로 온 데이터의 body 속성 출력
     // console.log(url); // 요청으로 온 데이터의 body 속성 출력
@@ -55,7 +44,7 @@ app.post("/add_url", async (req, res) => {
       } 
     }));
 */
-    // res.send("url save success");
+    res.send(result);
 });
 
 app.listen(PORT, () => {

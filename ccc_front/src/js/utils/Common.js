@@ -67,12 +67,16 @@ const handleSubmit = (event, url, setData) => {
     })
         .then((response) => {
             if (response.ok) {
-                return response.json();
+                return response.text();
+                // return response.json();
             }
             throw new Error("Network response was not ok");
         })
         .then((data) => {
-            setData(data);
+            if (data instanceof Object) {
+                setData(data);
+            }
+            
             console.log(data);
         })
         .catch((error) => {

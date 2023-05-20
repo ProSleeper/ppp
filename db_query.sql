@@ -129,7 +129,7 @@ CREATE TABLE sale_data (
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
   url VARCHAR(700) NOT NULL,
-  change_date DATE not null,
+  change_date DATETIME not null,
   sale_price int not null,
   prev_price int not null
 );

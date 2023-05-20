@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const { WriteToDailyDB, read_url } = require("./io_db.js");
+const { StoreProductData, read_url } = require("./service.js");
 const { fetchHtml, extractData } = require("../util/common_utils.js");
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/CCC.json"), "utf8"));
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
 const main = async () => {
@@ -27,7 +27,7 @@ const main = async () => {
             });
         })
     );
-    WriteToDailyDB(data_list);
+    StoreProductData(data_list);
 };
 
 main();

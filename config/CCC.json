@@ -1,16 +1,4 @@
 {
-    "sheetName": "Sheet1",
-    "headers": [["Brand", "URL", "Product Title"]],
-    "path": {
-        "store": {
-            "day": "../../log/day/",
-            "month": "../../log/month/",
-            "year": "../../log/year/",
-            "sale": "../../sale/"
-        },
-        "urls": "../../list/urls.json",
-        "checkMate": "../../log/check/"
-    },
     "parse_brand_selector": {
         "musinsa": {
             "title": ["span.product_title em"],
