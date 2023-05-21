@@ -48,7 +48,7 @@ const device_check = () => {
 
 import { isWindows } from "react-device-detect";
 
-const handleSubmit = (event, url, setData) => {
+export const handleSubmit = (event, url) => {
     event && event.preventDefault();
 
     //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
@@ -68,20 +68,75 @@ const handleSubmit = (event, url, setData) => {
         .then((response) => {
             if (response.ok) {
                 return response.text();
-                // return response.json();
             }
             throw new Error("Network response was not ok");
         })
-        .then((data) => {
-            if (data instanceof Object) {
-                setData(data);
+        .then((result) => {
+            if (result) {
+                // print_url_list(setData);
             }
-            
-            console.log(data);
         })
         .catch((error) => {
             console.error(error);
         });
 };
 
-export default handleSubmit;
+export const print_url_list = (setData) => {
+    //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
+    //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
+    //추후에 수정하자.
+    const reqUrl = (isWindows && "http://127.0.0.1:4000/print_total_url") || "http://manyo.hopto.org/print_total_url";
+
+    fetch(reqUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok");
+        })
+        .then((data) => {
+            setData(data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
+export const remove_url = (url) => {
+    //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
+    //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
+    //추후에 수정하자.
+    const reqUrl = (isWindows && "http://127.0.0.1:4000/remove_url") || "http://manyo.hopto.org/remove_url";
+
+    fetch(reqUrl, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url }),
+    })
+        .then((response) => {
+            if (response.ok) {
+                return response.text();
+            }
+            throw new Error("Network response was not ok");
+        })
+        .then((result) => {
+            if (result) {
+                // print_url_list(setData);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
+// export default {
+//     handleSubmit,
+//     print_url_list,
+// };

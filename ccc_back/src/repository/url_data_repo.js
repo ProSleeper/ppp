@@ -31,16 +31,12 @@ const save = (data_obj) => {
     });
 };
 
-const remove = (data_obj) => {
+const remove = (url) => {
     return new Promise((resolve, reject) => {
-        connection.query(
-            `delete from ${data_obj.constructor.name} where ?`,
-            { url: data_obj.data.url },
-            function (error, rows, fields) {
-                if (error) reject(error);
-                resolve("delete ok");
-            }
-        );
+        connection.query(`delete from url_data where url = '${url}'`, function (error, rows, fields) {
+            if (error) reject(error);
+            resolve("delete ok");
+        });
     });
 };
 

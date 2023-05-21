@@ -21,29 +21,21 @@ app.post("/add_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
     const receive_url = req.body.url;
     const result = await service.add_url(receive_url);
-    // try {
-    //     const brand = parse_brand(req.body.url);
-    //     const url = req.body.url;
-    //     insert_product_data(brand, url);
-    // } catch (error) {
-    //     console.log(error);
+    // if (result) {
+    //     const total_url = await service.get_total_url();
+    //     res.send(total_url);
     // }
-    // const result = await select_product_data();
-    // res.send(result);
+    res.send(result);
+});
 
-    // console.log(web_platform); // 요청으로 온 데이터의 body 속성 출력
-    // console.log(url); // 요청으로 온 데이터의 body 속성 출력
-    // console.log("add_url로 요청옴");
-    // insert_data(web_platform, url);
-    /*
-    WriteTo(JSON.stringify({
-      behavior: "INSERT",
-      data: {
-        brand: "MUSINSA",
-        url: "http://musinsa.com"
-      } 
-    }));
-*/
+app.get("/print_total_url", async (req, res) => {
+    const total_url = await service.get_total_url();
+    res.send(total_url);
+});
+
+app.delete("/remove_url", async (req, res) => {
+    const receive_remove_url = req.body.url;
+    const result = await service.remove_url(receive_remove_url);
     res.send(result);
 });
 

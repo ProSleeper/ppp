@@ -27,13 +27,23 @@ const isValidURL = (url) => {
 
 const add_url = async (url) => {
     if (!isValidURL(url)) {
-        return "save fail";
+        return false;
     }
     const url_obj = new url_data(parse_brand(url), url);
     const result = await url_data_repo.save(url_obj);
-    return result;
+    return true;
+};
+
+const get_total_url = async () => {
+    return await url_data_repo.findAll();
+};
+
+const remove_url = async (url) => {
+    return await url_data_repo.remove(url);
 };
 
 module.exports = {
     add_url,
+    get_total_url,
+    remove_url,
 };
