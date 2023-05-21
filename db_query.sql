@@ -12,8 +12,54 @@ flush privileges;
 
 -- 윈도우에서 환경변수를 설정해도 에러가 날때 해결 방법
 -- ALTER USER 'u0_a177'@'localhost' IDENTIFIED WITH mysql_native_password BY 'suzi123';
-
 -- 추후에 나머지 테이블은 이 url_data테이블의 url을 참조해야한다.
+/*
+  *************************ER_TRUNCATED_WRONG_VALUE_FOR_FIELD 발생해서 찾아봐서 해결한 문제!!!!*************************
+  (아래 방법은 mariadb 10.8.x 이상에서 했던 작업이고, mysql도 비슷하지만 버전에 따라 조금씩 다르니까 검색해서 참고 해야한다.)
+  linux에서 db컬럼에 한글을 넣으면 encoding문제가 발생한다. 그래서 찾아보니까 버전마다 다르긴 하지만 mysql이든 mariadb든
+  현재 웹에서 제일 많이 사용하는 utf8mb4를 사용하도록 설정해줘야한다고 한다.
+  인터넷에 mariadb 문자열셋 변경, mysql 문자열셋 변경으로 검색하면 자세히 나온다.
+  root로 sql 접속 후 show variables like 'c%'; 하면 현재 db의 encoding 설정이 나오는데, ER_TRUNCATED_WRONG_VALUE_FOR_FIELD 에러가 발생했다면 보통 latinl 혹은 utf8, utf8mb3 로 많은 부분들이 나온다. 최신 웹에서 이모지까지 지원하기 위한 db를 만들려면 utf8mb4로 해야한다.
+
+  먼저 /etc/my.cnf를 바꿔준다.
+  vi /etc/my.cnf
+  파일을 열면 보통
+  ```
+  #
+  # This group is read ...
+  [client-server]
+  !includeddir /etc/my.cfg.d
+  ```
+  대략 위와 같은 내용이 작성 되어 있을 것이다.
+  그 하위로 아래 내용을 적어주면 된다.
+  ```
+
+  [client]
+  default-character-set=utf8mb4
+
+  [mysql]
+  default-character-set=utf8mb4
+
+  [mysqldump]
+  default-character-set=utf8mb4
+
+  [mysqld]
+  character-set-server=utf8mb4
+  collation-server=utf8mb4_unicode_ci
+  skip-character-set-client-handshake​
+
+  ```
+  그리고 저장하고 service mysqld restart
+  하고 다시 sql 접속 후 show variables like 'c%'; 하면 거의 모든 부분이 utf8mb4로 되어있다.
+  character_set_system은 utf8mb3 일텐데 이건 시스템에서 사용하는 부분이라고 해서 상관없다.
+  
+  이후에 생기는 db와 table 은 utf8mb4로 생성되지만 이전에 생선한 db와 table은 따로 설정해줘야 한다.
+  db 설정: ALTER DATABASE <database_name> CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+  table 설정: ALTER TABLE <table_name> CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  
+  이제 db에 한글을 작성해도 오류가 안날거다!
+*/
+
 CREATE TABLE url_data (
   brand VARCHAR(255) not null,
   url VARCHAR(700) NOT NULL,

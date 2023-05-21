@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const { StoreProductData, read_url } = require("./service.js");
 const { fetchHtml, extractData } = require("../util/common_utils.js");
+const { connection } = require("./repository/mysql_connector.js");
+
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
@@ -27,7 +29,8 @@ const main = async () => {
             });
         })
     );
-    StoreProductData(data_list);
+    await StoreProductData(data_list);
+    connection.end();
 };
 
 main();
