@@ -53,8 +53,15 @@ app.delete("/remove_url", async (req, res) => {
 app.post("/store_va_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
     const receive_url = req.body.url;
-    const result = await va_service.StoreVAUrl(receive_url);
-    res.send(result);
+    const arr_receive_url = receive_url.split(" ");
+    let result = null;
+    arr_receive_url.forEach(async (url) => {
+        result = await va_service.StoreVAUrl(url);
+    });
+
+    // const result = await va_service.StoreVAUrl(receive_url);
+
+    res.send("daily end!");
 });
 
 app.get("/print_total_va_url", async (req, res) => {

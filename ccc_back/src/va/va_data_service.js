@@ -13,7 +13,7 @@ const StoreVAUrl = async (url) => {
     }
     try {
         const html = await fetchHtml(full_url);
-        const title = get_title(html);
+        const title = get_title(html) || full_url;
         const va_obj = new va_data(title, full_url);
         return await va_data_repo.save(va_obj);
     } catch (error) {
