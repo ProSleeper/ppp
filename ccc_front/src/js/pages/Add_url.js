@@ -5,9 +5,7 @@ import UrlTable from "../module/Url_table.js";
 import UrlInputForm from "../module/Url_input_form.js";
 
 const AddUrl = () => {
-    const service_url = "http://manyo.hopto.org";
-    const develop_url = "http://localhost:4000";
-    const use_url = develop_url;
+    const use_url = process.env.REACT_APP_API_URL;
 
     const add_url = use_url + "/store_url";
     const print_total_url = use_url + "/print_total_url";

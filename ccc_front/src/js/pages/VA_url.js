@@ -5,9 +5,7 @@ import UrlTableVA from "../module/Url_table_va.js";
 import UrlInputForm from "../module/Url_input_form.js";
 
 const VAUrl = () => {
-    const service_url = "http://manyo.hopto.org";
-    const develop_url = "http://localhost:4000";
-    const use_url = develop_url;
+    const use_url = process.env.REACT_APP_API_URL;
 
     const add_url = use_url + "/store_va_url";
     const print_total_va_url = use_url + "/print_total_va_url";
