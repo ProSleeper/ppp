@@ -180,6 +180,17 @@ CREATE TABLE sale_data (
   prev_price int not null
 );
 
+index, title, url, add_data,
+
+
+CREATE TABLE va_data (
+  ID int NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  url VARCHAR(700) unique,
+  created DATETIME not null,
+  primary key(ID)
+
+);
 
 
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/595039');

@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { handleSubmit } from "../utils/Common.js";
+import { store_url } from "../utils/Common.js";
 
-const UrlInputForm = () => {
+const UrlInputForm = (props) => {
     const [url, setUrl] = useState("");
     return (
         <div className="container mt-5">
-            <Form onSubmit={(event) => handleSubmit(event, url)}>
+            <Form onSubmit={(event) => store_url(event, url, props.add_url, props.url_data)}>
                 <Form.Group controlId="formBasicUrl">
                     <Form.Label>URL input</Form.Label>
                     <Form.Control
@@ -19,7 +19,6 @@ const UrlInputForm = () => {
                     />
                     <Form.Text className="text-muted">Send the URL you entered to the server.</Form.Text>
                 </Form.Group>
-
                 <Button className="col-md-3 offset-sm-9 btn-submit" variant="primary" type="submit">
                     Save
                 </Button>

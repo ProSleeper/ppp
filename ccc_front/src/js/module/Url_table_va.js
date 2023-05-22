@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { print_url_list, remove_url } from "../utils/Common.js";
-
-const UrlTable = (props) => {
+//va용으로 만들 테이블. 코드가 거의 같은데 당장 시간이 부족해서 그냥 복사 붙여넣기로 하나 만듬
+//조금만 수정하면 중복 없이 만드는 거 가능할거 같은데 ㅠㅠ
+const UrlTableVA = (props) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [deleteUrl, setDeleteUrl] = useState("");
     const headers = Object.entries(props.table_header);
@@ -17,11 +18,13 @@ const UrlTable = (props) => {
     const confirmDeleteAction = async () => {
         // 서버로 삭제 요청 보내는 로직 구현
         if (deleteUrl !== "") {
-            await remove_url(deleteUrl, props.remove_url);
+            await remove_url(deleteUrl, props.remove_va_url);
         }
         setConfirmDelete(false);
         setDeleteUrl("");
     };
+    // console.log(props.print_total_va_url);
+    // print_url_list(setData, props.print_total_va_url);
 
     useEffect(() => {
         print_url_list(props.url_data.setData, props.url_data.print_total_url);
@@ -31,21 +34,17 @@ const UrlTable = (props) => {
         <div>
             <Table striped bordered hover>
                 <thead>
-                    <tr>
-                        {headers.map(([key, value]) => (
-                            <th key={key}>{value}</th>
-                        ))}
-                    </tr>
+                    <tr>{headers.map(([key, value]) => key !== "url" && <th key={key}>{value}</th>)}</tr>
                 </thead>
                 <tbody>
                     {props.url_data.data.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.brand}</td>
                             <td>
                                 <a href={item.url} target="_blank" rel="noreferrer">
-                                    {item.url}
+                                    {item.title}
                                 </a>
                             </td>
+                            <td>{item.created}</td>
                             <td>
                                 <button onClick={() => handleDelete(item.url)}>
                                     <i className="fas fa-times">Del</i>
@@ -73,4 +72,4 @@ const UrlTable = (props) => {
     );
 };
 
-export default UrlTable;
+export default UrlTableVA;

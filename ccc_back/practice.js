@@ -1,47 +1,13 @@
-const { query_exec } = require("./mysql.js");
+const axios = require("axios");
 
-const behavior = {
-    insert: "INSERT",
-    update: "UPDATE",
-    delete: "DELETE",
-    select: "SELECT",
-};
-Object.freeze(behavior);
-
-const data = (behavior, brand, url) => {
-    return {
-        behavior: behavior,
-        data: {
-            brand: brand,
-            url: url,
-        },
-    };
-};
-
-// const request_data = data(behavior.insert, "milk", "MAIL");
-// const request_data = data(behavior.update, "hunhul", "undefined");
-// const request_data = data(behavior.delete, "", "ftp");
-// const request_data = data(behavior.select, "", "");
-const insert_product_data = (brand, url) => {
-    const request_data = data(behavior.insert, brand, url);
-
-    query_exec(request_data).then((result) => {
-        if (result !== null) {
-            console.log(result);
+axios
+    .get("https://tv16.avsee.in/bbs/board.php?bo_table=javc&wr_id=1126970")
+    .then((response) => {
+        console.log(response.status);
+        if (response.status == 200) {
+            console.log("suc");
         }
+    })
+    .catch((error) => {
+        console.error(error);
     });
-};
-
-const select_product_data = (brand = "", url = "") => {
-    const request_data = data(behavior.select, brand, url);
-
-    const result = query_exec(request_data);
-    if (result !== null) {
-        return result;
-    }
-};
-
-module.exports = {
-    insert_product_data,
-    select_product_data,
-};

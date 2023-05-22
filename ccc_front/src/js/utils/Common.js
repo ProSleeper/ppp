@@ -46,18 +46,18 @@ const device_check = () => {
 };
 */
 
-import { isWindows } from "react-device-detect";
+// import { isWindows } from "react-device-detect";
 
-export const handleSubmit = (event, url) => {
+export const store_url = (event, url, reqUrl, url_data) => {
     event && event.preventDefault();
-
+    //req_url,
     //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
     //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
     //추후에 수정하자.
-    const reqUrl = (isWindows && "http://127.0.0.1:4000/add_url") || "http://manyo.hopto.org/add_url";
-    console.log("isWindows: " + isWindows);
+    // const reqUrl = (isWindows && "http://127.0.0.1:4000/add_url") || "http://manyo.hopto.org/add_url";
+    // console.log("isWindows: " + isWindows);
 
-    console.log(reqUrl);
+    // console.log(reqUrl);
     fetch(reqUrl, {
         method: "POST",
         headers: {
@@ -73,7 +73,8 @@ export const handleSubmit = (event, url) => {
         })
         .then((result) => {
             if (result) {
-                // print_url_list(setData);
+                print_url_list(url_data.setData, url_data.print_total_url);
+                // print_url_list(setData, print_total_url);
             }
         })
         .catch((error) => {
@@ -81,12 +82,12 @@ export const handleSubmit = (event, url) => {
         });
 };
 
-export const print_url_list = (setData) => {
+export const print_url_list = (setData, reqUrl) => {
     //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
     //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
     //추후에 수정하자.
-    const reqUrl = (isWindows && "http://127.0.0.1:4000/print_total_url") || "http://manyo.hopto.org/print_total_url";
-
+    // const reqUrl = (isWindows && "http://127.0.0.1:4000/print_total_url") || "http://manyo.hopto.org/print_total_url";
+    console.log("print");
     fetch(reqUrl, {
         method: "GET",
         headers: {
@@ -107,33 +108,35 @@ export const print_url_list = (setData) => {
         });
 };
 
-export const remove_url = (url) => {
+export const remove_url = (url, reqUrl) => {
     //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
     //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
     //추후에 수정하자.
-    const reqUrl = (isWindows && "http://127.0.0.1:4000/remove_url") || "http://manyo.hopto.org/remove_url";
-
-    fetch(reqUrl, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
-    })
-        .then((response) => {
-            if (response.ok) {
-                return response.text();
-            }
-            throw new Error("Network response was not ok");
+    // const reqUrl = (isWindows && "http://127.0.0.1:4000/remove_url") || "http://manyo.hopto.org/remove_url";
+    return new Promise((resolve, reject) => {
+        fetch(reqUrl, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url }),
         })
-        .then((result) => {
-            if (result) {
-                // print_url_list(setData);
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error("Network response was not ok");
+            })
+            .then((result) => {
+                if (result) {
+                    // print_url_list(setData);
+                    resolve();
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
 };
 
 // export default {
