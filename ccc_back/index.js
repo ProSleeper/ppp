@@ -29,12 +29,13 @@ app.get("/va_url", (req, res) => {
 //cloth controller
 app.post("/store_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
-    const receive_url = req.body.url;
-    const result = await service.add_url(receive_url);
-    // if (result) {
-    //     const total_url = await service.get_total_url();
-    //     res.send(total_url);
-    // }
+    const receive_url = req.body.url;musinsa.com
+    const arr_receive_url = receive_url.split(" ");
+    let result = null;
+    for (const url of arr_receive_url) {
+        result = await service.add_url(url);
+    }
+
     res.send(result);
 });
 
@@ -45,8 +46,13 @@ app.get("/print_total_url", async (req, res) => {
 
 app.delete("/remove_url", async (req, res) => {
     const receive_remove_url = req.body.url;
+    const to_be_deleted_url_data = await service.get_one_url(receive_remove_url);
+    let move_result = "";
+    for (const url_data of to_be_deleted_url_data) {
+        move_result = await service.add_deleted_url(url_data.brand, url_data.url);
+    }
     const result = await service.remove_url(receive_remove_url);
-    res.send(result);
+    res.send(move_result + ", " + result);
 });
 
 // va_controller
@@ -55,12 +61,9 @@ app.post("/store_va_url", async (req, res) => {
     const receive_url = req.body.url;
     const arr_receive_url = receive_url.split(" ");
     let result = null;
-    arr_receive_url.forEach(async (url) => {
+    for (const url of arr_receive_url) {
         result = await va_service.StoreVAUrl(url);
-    });
-
-    // const result = await va_service.StoreVAUrl(receive_url);
-
+    }
     res.send("daily end!");
 });
 
@@ -71,8 +74,13 @@ app.get("/print_total_va_url", async (req, res) => {
 
 app.delete("/remove_va_url", async (req, res) => {
     const receive_remove_url = req.body.url;
+    const to_be_deleted_va_data_dto = await va_service.GetOneVAUrl(receive_remove_url);
+    let move_result = "";
+    for (const va_data of to_be_deleted_va_data_dto) {
+        move_result = await va_service.StoreDeletedVAUrl(va_data.title, va_data.url);
+    }
     const result = await va_service.RemoveVAUrl(receive_remove_url);
-    res.send(result);
+    res.send(move_result + ", " + result);
 });
 
 

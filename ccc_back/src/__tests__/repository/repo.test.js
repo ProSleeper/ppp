@@ -1,4 +1,4 @@
-const { connection } = require("../../../repository/mysql_connector.js");
+const { connection } = require("../../../src/repository/mysql_connector.js");
 
 beforeEach(async () => {
     connection.beginTransaction();

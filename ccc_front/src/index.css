@@ -29,6 +29,7 @@ td {
   white-space: nowrap;
   overflow: hidden;
 }
+
 /*mobile icon margin*/
 @media (max-width: 767px) {
   .nav-link {

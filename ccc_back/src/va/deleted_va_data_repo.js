@@ -11,7 +11,7 @@ const va_data_dto = require("./va_data_dto.js");
 const save = (data_obj) => {
     return new Promise((resolve, reject) => {
         connection.query(
-            `insert into va_data set ?, created = now() on duplicate key update ?, created = now()`,
+            `insert into deleted_va_data set ?, created = now() on duplicate key update ?, created = now()`,
             [data_obj.data, data_obj.data],
             function (error, rows, fields) {
                 if (error) reject(error);
@@ -23,7 +23,7 @@ const save = (data_obj) => {
 
 const remove = (url) => {
     return new Promise((resolve, reject) => {
-        connection.query(`delete from va_data where url = '${url}'`, function (error, rows, fields) {
+        connection.query(`delete from deleted_va_data where url = '${url}'`, function (error, rows, fields) {
             if (error) reject(error);
             resolve("delete ok");
         });
@@ -32,16 +32,7 @@ const remove = (url) => {
 
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from va_data", function (error, rows, fields) {
-            if (error) reject(error);
-            resolve(convert_to_dto(rows));
-        });
-    });
-};
-
-const findByUrl = (url) => {
-    return new Promise((resolve, reject) => {
-        connection.query(`select * from va_data where url = '${url}'`, function (error, rows, fields) {
+        connection.query("select * from deleted_va_data", function (error, rows, fields) {
             if (error) reject(error);
             resolve(convert_to_dto(rows));
         });
@@ -63,6 +54,5 @@ const convert_to_dto = (rows) => {
 module.exports = {
     save,
     remove,
-    findByUrl,
     findAll,
 };

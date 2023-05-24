@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const url_data = require("../entity/url_data.js");
 const url_data_repo = require("../repository/url_data_repo.js");
+const deleted_url_data_repo = require("../repository/deleted_url_data_repo.js");
 const { isValidURL, fullAddress } = require("../va/va_utils.js");
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
@@ -35,12 +36,25 @@ const get_total_url = async () => {
     return await url_data_repo.findAll();
 };
 
+const get_one_url = async (url) => {
+    return await url_data_repo.findByUrl(url);
+};
+
 const remove_url = async (url) => {
     return await url_data_repo.remove(url);
 };
 
+const add_deleted_url = async (brand, url) => {
+    const url_obj = new url_data(brand, url);
+
+    const result = await deleted_url_data_repo.save(url_obj);
+    return true;
+};
+
 module.exports = {
     add_url,
+    add_deleted_url,
     get_total_url,
+    get_one_url,
     remove_url,
 };

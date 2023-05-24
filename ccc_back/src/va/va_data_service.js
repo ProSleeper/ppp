@@ -1,6 +1,7 @@
 const { fetchHtml, get_title, isValidURL, fullAddress } = require("./va_utils.js");
 const va_data = require("./va_data.js");
 const va_data_repo = require("./va_data_repo.js");
+const deleted_va_data_repo = require("./deleted_va_data_repo.js");
 
 const StoreVAUrl = async (url) => {
     const full_url = fullAddress(url);
@@ -29,8 +30,20 @@ const RemoveVAUrl = async (url) => {
     return await va_data_repo.remove(url);
 };
 
+const GetOneVAUrl = async (url) => {
+    return await va_data_repo.findByUrl(url);
+};
+
+const StoreDeletedVAUrl = async (title, url) => {
+    const url_obj = new va_data(title, url);
+    const result = await deleted_va_data_repo.save(url_obj);
+    return true;
+};
+
 module.exports = {
     StoreVAUrl,
+    StoreDeletedVAUrl,
+    GetOneVAUrl,
     GetTotalVAUrl,
     RemoveVAUrl,
 };

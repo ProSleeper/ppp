@@ -66,6 +66,12 @@ CREATE TABLE url_data (
   PRIMARY key(url)
 );
 
+CREATE TABLE deleted_url_data (
+  brand VARCHAR(255) not null,
+  url VARCHAR(700) NOT NULL,
+  PRIMARY key(url)
+);
+
 CREATE TABLE daily_data (
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
@@ -189,7 +195,14 @@ CREATE TABLE va_data (
   url VARCHAR(700) unique,
   created DATETIME not null,
   primary key(ID)
+);
 
+CREATE TABLE deleted_va_data (
+  ID int NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  url VARCHAR(700) unique,
+  created DATETIME not null,
+  primary key(ID)
 );
 
 
