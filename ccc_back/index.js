@@ -1,9 +1,21 @@
 const path = require('path');
+const fs = require("fs");
+const http = require("http");
+const https = require("https");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const service = require("./src/service/service.js");
 const va_service = require("./src/va/va_data_service.js");
+
+/*
+const options = {
+	key : fs.readFileSync("fake-keys/key.pem"),
+	cert : fs.readFileSync("fake-keys/cert.pem")
+}
+*/
+const portForHttp = 4000;
+const portForHttps = 4001;
 
 app.use(cors());
 const PORT = 4000;
@@ -84,6 +96,19 @@ app.delete("/remove_va_url", async (req, res) => {
 });
 
 
+/*
+const https_server = https.createServer(options, app);
+
+http.createServer(app).listen(portForHttp, function() {
+	console.log("Http server listening on port " + portForHttp);
+});
+
+https.createServer(options, app).listen(portForHttps, function() {
+	console.log("Https server listening on port " + portForHttps);
+});
+*/
+
+
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
+ console.log(`Example app listening on port ${PORT}!`);
 });
