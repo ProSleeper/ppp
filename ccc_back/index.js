@@ -9,14 +9,20 @@ const service = require("./src/service/service.js");
 const va_service = require("./src/va/va_data_service.js");
 
 const options = {
-	key : fs.readFileSync("ssl_keys/private.key"),
-    cert: fs.readFileSync("ssl_keys/certificate.crt"),
-    ca : fs.readFileSync("ssl_keys/ca_bundle.crt")
+	key : fs.readFileSync(path.join(__dirname, "/ssl_keys/private.pem"), "utf8"),
+    cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.pem"), "utf8"),
+    ca : fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.pem"), "utf8")
 }
+/*
+const options = {
+	key : fs.readFileSync("ssl_keys/private.pem", "utf8"),
+    cert: fs.readFileSync("ssl_keys/certificate.pem", "utf8"),
+    ca : fs.readFileSync("ssl_keys/ca_bundle.pem", "utf8")
+}
+*/
 
-
-const portForHttp = 4000;
-const portForHttps = 4001;
+const portForHttp = 4001;
+const portForHttps = 4000;
 
 app.use(cors());
 const PORT = 4000;
@@ -28,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+    console.log("req.secure == " + req.secure);
     res.sendFile(path.join(react_build_file, "index.html"));
 });
 
