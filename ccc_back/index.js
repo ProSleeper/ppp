@@ -7,34 +7,35 @@ const app = express();
 const cors = require("cors");
 const service = require("./src/service/service.js");
 const va_service = require("./src/va/va_data_service.js");
+require("dotenv").config();
 
 const options = {
-	key : fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
+    key: fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
     cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.crt"), "utf8"),
-    ca : fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.crt"), "utf8")
-}
-/*
-const options = {
-	key : fs.readFileSync("ssl_keys/private.pem", "utf8"),
-    cert: fs.readFileSync("ssl_keys/certificate.pem", "utf8"),
-    ca : fs.readFileSync("ssl_keys/ca_bundle.pem", "utf8")
-}
-*/
+    ca: fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.crt"), "utf8"),
+};
 
 const portForHttp = 4000;
 const portForHttps = 4001;
 
 app.use(cors());
-const PORT = 4000;
-const react_build_file = path.join(__dirname, "..", "ccc_front", "build");
-
-app.use(express.static(react_build_file));
+const react_build_file = path.join(__dirname, "../ccc_front/build");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const domain = process.env.HTTPS_URL;
+
+app.get("*", (req, res, next) => {
+    if (!req.secure) {
+        console.log(`${domain}${req.url}`);
+        res.redirect(`${domain}${req.url}`);
+    } else {
+        next();
+    }
+});
+
 app.get("/", (req, res) => {
-    console.log("req.secure == " + req.secure);
     res.sendFile(path.join(react_build_file, "index.html"));
 });
 
@@ -49,14 +50,15 @@ app.get("/va_url", (req, res) => {
 //cloth controller
 app.post("/store_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
-    const receive_url = req.body.url;musinsa.com
+    const receive_url = req.body.url;
+    musinsa.com;
     const arr_receive_url = receive_url.split(" ");
-    console.time("db query")
+    console.time("db query");
     let result = null;
     for (const url of arr_receive_url) {
         result = await service.add_url(url);
     }
-    console.timeEnd("db query")
+    console.timeEnd("db query");
     res.send(result);
 });
 
@@ -69,12 +71,10 @@ app.delete("/remove_url", async (req, res) => {
     const receive_remove_url = req.body.url;
     const to_be_deleted_url_data = await service.get_one_url(receive_remove_url);
     let move_result = "";
-    
+
     for (const url_data of to_be_deleted_url_data) {
         move_result = await service.add_deleted_url(url_data.brand, url_data.url);
     }
-    
-
 
     const result = await service.remove_url(receive_remove_url);
     res.send(move_result + ", " + result);
@@ -107,6 +107,8 @@ app.delete("/remove_va_url", async (req, res) => {
     const result = await va_service.RemoveVAUrl(receive_remove_url);
     res.send(move_result + ", " + result);
 });
+
+app.use(express.static(react_build_file));
 
 
 const httpServer = http.createServer(app);

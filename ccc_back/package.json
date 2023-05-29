@@ -3,13 +3,19 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "jest": "jest"
+        "jest": "jest",
+        "start": "cp ./.env.dev ./.env && node index.js",
+        "start:w": "copy .env.dev .env && node index.js",
+        "start:production": "cp ./.env.prod ./.env && node index.js",
+        "start:w:production": "copy .env.prod .env && node index.js",
+        "test": "node index.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "cheerio": "^1.0.0-rc.12",
         "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "http": "^0.0.1-security",
         "https": "^1.0.0",
