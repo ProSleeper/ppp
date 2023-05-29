@@ -9,9 +9,9 @@ const service = require("./src/service/service.js");
 const va_service = require("./src/va/va_data_service.js");
 
 const options = {
-	key : fs.readFileSync(path.join(__dirname, "/ssl_keys/private.pem"), "utf8"),
-    cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.pem"), "utf8"),
-    ca : fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.pem"), "utf8")
+	key : fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
+    cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.crt"), "utf8"),
+    ca : fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.crt"), "utf8")
 }
 /*
 const options = {
@@ -21,8 +21,8 @@ const options = {
 }
 */
 
-const portForHttp = 4001;
-const portForHttps = 4000;
+const portForHttp = 4000;
+const portForHttps = 4001;
 
 app.use(cors());
 const PORT = 4000;
@@ -51,11 +51,12 @@ app.post("/store_url", async (req, res) => {
     // console.log(req.body.url); // 요청으로 온 데이터의 body 속성 출력
     const receive_url = req.body.url;musinsa.com
     const arr_receive_url = receive_url.split(" ");
+    console.time("db query")
     let result = null;
     for (const url of arr_receive_url) {
         result = await service.add_url(url);
     }
-
+    console.timeEnd("db query")
     res.send(result);
 });
 
@@ -68,9 +69,13 @@ app.delete("/remove_url", async (req, res) => {
     const receive_remove_url = req.body.url;
     const to_be_deleted_url_data = await service.get_one_url(receive_remove_url);
     let move_result = "";
+    
     for (const url_data of to_be_deleted_url_data) {
         move_result = await service.add_deleted_url(url_data.brand, url_data.url);
     }
+    
+
+
     const result = await service.remove_url(receive_remove_url);
     res.send(move_result + ", " + result);
 });
