@@ -30,9 +30,22 @@ const remove = (url) => {
     });
 };
 
+const move = (url) => {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            `insert into deleted_va_data (title, url, created) select title, url, created from va_data where ? on duplicate key update title = VALUES(title), url = VALUES(url), created = VALUES(created)`,
+            { url: url },
+            function (error, rows, fields) {
+                if (error) reject(error);
+                resolve("save ok");
+            }
+        );
+    });
+};
+
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from va_data", function (error, rows, fields) {
+        connection.query("select * from va_data order by id desc", function (error, rows, fields) {
             if (error) reject(error);
             resolve(convert_to_dto(rows));
         });
@@ -65,4 +78,5 @@ module.exports = {
     remove,
     findByUrl,
     findAll,
+    move,
 };

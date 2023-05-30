@@ -40,9 +40,22 @@ const remove = (url) => {
     });
 };
 
+const move = (url) => {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            `insert into deleted_url_data (brand, url) select * from url_data where ? on duplicate key update brand = VALUES(brand)`,
+            { url: url },
+            function (error, rows, fields) {
+                if (error) reject(error);
+                resolve("save ok");
+            }
+        );
+    });
+};
+
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from url_data", function (error, rows, fields) {
+        connection.query("select * from url_data order by url desc", function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });
@@ -58,11 +71,10 @@ const findByUrl = (url) => {
     });
 };
 
-
-
 module.exports = {
     save,
     remove,
     findByUrl,
     findAll,
+    move,
 };
