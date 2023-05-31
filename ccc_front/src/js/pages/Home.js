@@ -9,6 +9,7 @@ const Home = () => {
             registration.pushManager.getSubscription().then((subscription) => {
                 if (subscription) {
                     //save subscription on DB
+                    console.log(subscription);
                 } else {
                     registration.pushManager
                         .subscribe({
@@ -18,6 +19,8 @@ const Home = () => {
                         })
                         .then((subscription) => {
                             //save subscription on DB
+                            console.log(subscription);
+
                         });
                 }
             });
