@@ -63,7 +63,7 @@ app.delete("/remove_url", async (req, res) => {
     const receive_remove_url = req.body.url;
     move_result = await service.move_and_delete_url(receive_remove_url);
     res.send(move_result);
-});
+}); //end_cloth_controller
 
 // va_controller
 app.post("/store_va_url", async (req, res) => {
@@ -82,6 +82,15 @@ app.delete("/remove_va_url", async (req, res) => {
     move_result = await va_service.MoveAndDeleteUrl(receive_remove_url);
     res.send(move_result);
 });
+//end_va_controller
+
+app.post("/store_push_sub_data", async (req, res) => {
+    console.log(req.body);
+
+    res.send("sub store ok");
+});
+
+
 
 app.use(express.static(react_build_file));
 

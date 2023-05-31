@@ -1,3 +1,5 @@
-const fs = require("fs");
+const webpush = require("web-push");
 
-console.log(__dirname);
+const keys = webpush.generateVAPIDKeys();
+
+console.log(keys);
