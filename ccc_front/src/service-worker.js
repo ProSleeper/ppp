@@ -68,10 +68,21 @@ self.addEventListener("message", (event) => {
         self.skipWaiting();
     }
 });
+
+//서버에서 단순 텍스트를 보내서 받았을때 보여주기
 self.addEventListener("push", (event) => {
     console.log("push regist");
     const title = event.data.text();
     event.waitUntil(self.registration.showNotification(title));
 });
+
+//서버에서 json 으로 보내서 받았을 때 보여주기
+// self.addEventListener("push", (event) => {
+//     console.log("push regist");
+//     const {title, body} = event.data.json();
+//     event.waitUntil(self.registration.showNotification(title, { body }));
+// });
+
+
 
 // Any other custom service worker logic can go here.
