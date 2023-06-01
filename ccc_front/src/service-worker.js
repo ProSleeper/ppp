@@ -68,9 +68,10 @@ self.addEventListener("message", (event) => {
         self.skipWaiting();
     }
 });
-// self.addEventListener("push", (event) => {
-//     const title = event.data.text();
-//     event.waitUntil(self.registration.showNotification(title));
-// });
+self.addEventListener("push", (event) => {
+    console.log("push regist");
+    const title = event.data.text();
+    event.waitUntil(self.registration.showNotification(title));
+});
 
 // Any other custom service worker logic can go here.

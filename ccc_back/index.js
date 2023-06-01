@@ -8,6 +8,14 @@ const cors = require("cors");
 const service = require("./src/service/service.js");
 const va_service = require("./src/va/va_data_service.js");
 require("dotenv").config();
+const webpush = require("web-push");
+
+const keys = {
+    publicKey: "BKA9rsMuwAfknd92kUS5-PbL2A7P-viDmPh3WxtlrDo-tGH4D-E1H4jrJJRkCm0UBdiDN7Ikw5K35JoaSYVFcAA",
+    privateKey: "VKFjaad1SbEcmv3dA4OYBVstwZq8CAeSWuHbMIv46bI",
+};
+
+webpush.setVapidDetails("mailto:ingn@nate.com", keys.publicKey, keys.privateKey);
 
 const options = {
     key: fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
@@ -86,7 +94,20 @@ app.delete("/remove_va_url", async (req, res) => {
 
 app.post("/store_push_sub_data", async (req, res) => {
     console.log(req.body);
+    const user_endpoint = req.body.endpoint;
+    const user_p256dh = req.body.keys.p256dh;
+    const user_auth = req.body.keys.auth;
 
+    webpush.sendNotification(
+        {
+            endpoint: user_endpoint,
+            keys: {
+                p256dh: user_p256dh,
+                auth: user_auth,
+            },
+        },
+        "sensitive cream!!"
+    );
     res.send("sub store ok");
 });
 
