@@ -35,8 +35,9 @@ app.use(express.urlencoded({ extended: true }));
 const domain = process.env.HTTPS_URL;
 
 app.get("*", (req, res, next) => {
+    console.log(`${req.url}`);
     if (!req.secure) {
-        console.log(`${domain}${req.url}`);
+        // console.log(`${domain}${req.url}`);
         res.redirect(`${domain}${req.url}`);
     } else {
         next();
