@@ -2,8 +2,8 @@ const webpush = require("web-push");
 
 module.exports = (app) => {
     const keys = {
-        publicKey: "BKA9rsMuwAfknd92kUS5-PbL2A7P-viDmPh3WxtlrDo-tGH4D-E1H4jrJJRkCm0UBdiDN7Ikw5K35JoaSYVFcAA",
-        privateKey: "VKFjaad1SbEcmv3dA4OYBVstwZq8CAeSWuHbMIv46bI",
+        publicKey: process.env.WEB_PUSH_PUK,
+        privateKey: process.env.WEB_PUSH_PRK,
     };
 
     webpush.setVapidDetails("mailto:ingn@nate.com", keys.publicKey, keys.privateKey);
