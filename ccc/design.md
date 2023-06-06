@@ -1,3 +1,0 @@
-- ~~github action -> app 으로 알림 알리는 조건은 선택이 가능하다.(여러가지겠지?)~~
-- 위 알림은 불가능함. 따로 서버가 존재해야하지.
-- 그래서 github action -> app 이 아닌 app -> github action으로 request를 하는 방식으로 만들기로 했고 이 방식은 가능하다.

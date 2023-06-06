@@ -1,8 +1,8 @@
 const path = require("path");
 
 module.exports = (app, express) => {
-    const react_build_file = path.join(__dirname, "../ccc_front/build");
-
+    const react_build_file = path.join(__dirname, "../../../../ccc_front/build");
+    console.log(react_build_file);
     app.get("/", (req, res) => {
         res.sendFile(path.join(react_build_file, "index.html"));
     });

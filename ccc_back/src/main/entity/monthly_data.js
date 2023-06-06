@@ -1,4 +1,4 @@
-const { Parse_Day } = require("../../util/date_helper.js");
+const { Parse_Day } = require("../common/date_helper.js");
 
 class monthly_data {
     constructor(brand, title, url, today, price) {

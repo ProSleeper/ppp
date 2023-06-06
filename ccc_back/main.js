@@ -6,9 +6,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
-const was = require("./src/main/router/server_was");
-const api = require("./src/main/router/server_api");
-const push = require("./src/main/router/server_push");
+const was = require("./src/main/router/was");
+const api = require("./src/main/router/api");
+const push = require("./src/main/router/push");
 
 const options = {
     key: fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),

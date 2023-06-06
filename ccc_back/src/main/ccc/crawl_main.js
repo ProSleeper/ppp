@@ -1,13 +1,14 @@
 const fs = require("fs");
 const path = require("path");
-const { StoreProductData, read_url } = require("./service.js");
-const { fetchHtml, extractData } = require("../util/common_utils.js");
-const { connection } = require("./repository/mysql_connector.js");
+const { StoreProductData, read_url } = require("./crawl_service.js");
+const { fetchHtml, extractData } = require("../common/utils.js");
+const { connection } = require("../repository/mysql_connector.js");
 
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/CCC.json"), "utf8"));
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
-const main = async () => {
+// const main = async () => {
+module.exports = async () => {
     const total_url = await read_url();
     const data_list = await Promise.all(
         total_url.map((data) => {
@@ -24,7 +25,7 @@ const main = async () => {
                     //그러므로 extractData의 값을 받아서 brand, title, price등을 체크해서 없거나 문제가 있으면 reject부분으로 보내서 배열에 안넣어지도록 코드 변경이 필요한것 같다. 추후 수정하자.
                     resolve(extractData(html, product_info_data, parse_brand_selector[product_info_data.brand]));
                 } catch (error) {
-                    console.error("Error:", error);
+                    reject(error);
                 }
             });
         })
@@ -33,4 +34,4 @@ const main = async () => {
     connection.end();
 };
 
-main();
+// main();
