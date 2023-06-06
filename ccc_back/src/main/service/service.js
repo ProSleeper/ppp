@@ -4,8 +4,8 @@ const url_data = require("../entity/url_data.js");
 const url_data_repo = require("../repository/url_data_repo.js");
 const { isValidURL, fullAddress } = require("../va/va_utils.js");
 
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../config/CCC.json"), "utf8"));
-const brand_list = Object.keys(config.parse_brand_selector);
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
+const brand_list = config.brand_list;
 
 const parse_brand = (url) => {
     for (const brand of brand_list) {

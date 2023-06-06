@@ -87,7 +87,6 @@ export const print_url_list = (setData, reqUrl) => {
     //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
     //추후에 수정하자.
     // const reqUrl = (isWindows && "http://127.0.0.1:4000/print_total_url") || "http://manyo.hopto.org/print_total_url";
-    console.log("print");
     fetch(reqUrl, {
         method: "GET",
         headers: {

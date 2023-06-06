@@ -1,14 +1,14 @@
 {
     "name": "ccc_back",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "main.js",
     "scripts": {
         "jest": "jest",
-        "start": "cp ./.env.dev ./.env && node index.js",
-        "start:w": "copy .env.dev .env && node index.js",
-        "start:production": "cp ./.env.prod ./.env && node index.js",
-        "start:w:production": "copy .env.prod .env && node index.js",
-        "test": "node index.js"
+        "start": "cp ./.env.dev ./.env && node main.js",
+        "start:w": "copy .env.dev .env && node main.js",
+        "start:production": "cp ./.env.prod ./.env && node main.js",
+        "start:w:production": "copy .env.prod .env && node main.js",
+        "test": "node main.js"
     },
     "author": "",
     "license": "ISC",
