@@ -210,7 +210,7 @@ create table subscriber_data (
 	created datetime not null,
 	cookie varchar(255) unique,
 	endpoint varchar(255) not null,
-  expiration_time datetime not null,
+  expiration_time datetime,
 	p256dh varchar(255) not null,
 	auth varchar(255) not null,
 	primary key(id)

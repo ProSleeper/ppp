@@ -3,7 +3,7 @@ const { connection } = require("./mysql_connector.js");
 const save = (data_obj) => {
     return new Promise((resolve, reject) => {
         connection.query(
-            `insert into ${data_obj.constructor.name} set ?`,
+            `insert into ${data_obj.constructor.name} set ?, created = now()`,
             [data_obj.data],
             function (error, rows, fields) {
                 if (error) reject(error);
