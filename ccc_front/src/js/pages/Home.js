@@ -27,16 +27,20 @@ const Home = () => {
     }, []);
 
     const store_sub = (reqUrl, subscriber) => {
-        const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber };
-        const {
-            endpoint,
-            keys: { p256dh, auth },
-        } = subscriber;
+        const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber.toJSON() };
 
-        // console.log(subscriber);
-        console.log(endpoint);
-        console.log(p256dh);
-        console.log(auth);
+	//console.log(subscriber);
+	//console.log(subscriber.toJSON());
+/*
+	console.log(subscriber.endpoint);
+	console.log(subscriber.keys.p256dh);
+	console.log(subscriber.keys.auth);
+*/
+	//console.log(JSON.stringify(subscriber));
+	//console.log(user_subs_data.cookie);
+        //console.log(user_subs_data.endpoint);
+        //console.log(user_subs_data.keys.p256dh);
+        //console.log(user_subs_data.keys.auth);
 
         console.log(user_subs_data);
         fetch(reqUrl, {
