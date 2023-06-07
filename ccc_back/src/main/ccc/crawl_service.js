@@ -11,34 +11,44 @@ const sale_data = require("../entity/sale_data.js");
 const sale_data_repo = require("../repository/sale_data_repo.js");
 
 const StoreProductData = async (data_list) => {
-    data_list.forEach((element) => {
-        insert_product_data({ ...element });
-    });
-
-    const curr_time = dateUtil.HH();
-    if (curr_time === 0) {
-        const data_list = await daily_data_repo.findByMinPrice();
-        StoreMinPriceDataForDay(data_list);
-        // console.log(data_list);
+    for (const element of data_list) {
+        await insert_product_data({ ...element });
     }
 
-    if (curr_time > 0) {
-        const result = await daily_data_repo.findBySale(curr_time);
-        // console.log(result);
-        result.forEach(async (data) => {
+    //일자가 바뀌면, 즉 0시가 되면 바뀌는 부분도 체크해야하는데 현재 그 부분이 없다.
+    //추후에 curr_time >= 0 으로 해서 현재 0시이면 어제 날짜나 monthly_data와 비교하는 부분을 만들면 될거 같다.
+
+    const insert_sale_data = async (sale_list) => {
+        for (const data of sale_list) {
             const obj = new sale_data(data);
             const result = await sale_data_repo.save(obj);
-            // console.log(result);
-        });
+        }
+    };
+
+    const curr_time = dateUtil.HH();
+    if (curr_time >= 0) {
+        let sale_list = undefined;
+        if (curr_time === 0) {
+            sale_list = await daily_data_repo.findByYesterdayPriceCompareTodayPrice(curr_time);
+            await insert_sale_data(sale_list);
+            const min_price_data_list = await daily_data_repo.findByMinPrice();
+            await StoreMinPriceDataForDay(min_price_data_list);
+        } else {
+            sale_list = await daily_data_repo.findBySale(curr_time);
+            await insert_sale_data(sale_list);
+        }
+        if (sale_list && sale_list.length > 0) {
+            return sale_list;
+        }
     }
 };
 
-const StoreMinPriceDataForDay = (data_list) => {
-    data_list.forEach((element) => {
-        insert_monthly_data({ ...element });
-    });
-    insert_prev_data();
-    delete_old_daily_data();
+const StoreMinPriceDataForDay = async (data_list) => {
+    for (const element of data_list) {
+        await insert_monthly_data({ ...element });
+    }
+    await insert_prev_data();
+    await delete_old_daily_data();
 };
 
 const insert_product_data = async ({ brand, title, url, price }) => {
@@ -46,7 +56,6 @@ const insert_product_data = async ({ brand, title, url, price }) => {
     const obj = new daily_data(brand, title, url, curr_yyyymmdd, price);
 
     const result = await daily_data_repo.save(obj);
-    // console.log(result);
 };
 
 const insert_monthly_data = async ({ brand, title, url, today, price }) => {
@@ -57,11 +66,11 @@ const insert_monthly_data = async ({ brand, title, url, today, price }) => {
 
 const insert_prev_data = async () => {
     const data_list = await daily_data_repo.findByYesterday();
-    data_list.forEach(async (element) => {
+
+    for (const element of data_list) {
         const obj = new prev_daily_data(element);
         const result = await prev_daily_data_repo.save(obj);
-        // console.log(result);
-    });
+    }
 };
 
 // 데이터 삭제

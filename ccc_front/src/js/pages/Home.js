@@ -1,23 +1,40 @@
 // Home.js
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
-
-
-
+import { useCookies } from "react-cookie";
 
 const Home = () => {
     const use_url = process.env.REACT_APP_API_URL;
 
     const store_subscriber_url = use_url + "/store_push_sub_data";
 
+    const [cookies, setCookie, removeCookie] = useCookies();
+
+    useEffect(() => {
+        // 쿠키가 이미 존재하는지 확인
+        const isCookieExists = cookies.push_alarm_cookie !== undefined;
+
+        if (isCookieExists) {
+            // 동일한 이름의 쿠키가 이미 존재하는 경우의 처리
+            console.log("cookie exist");
+            console.log(cookies.push_alarm_cookie);
+        } else {
+            // 쿠키를 설정
+            const value = "ck" + (Date.now() * 1000 + Date.now() * 9) + "al";
+            setCookie("push_alarm_cookie", value);
+        }
+    }, []);
+
     const store_sub = (reqUrl, subscriber) => {
+        const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber };
+        console.log(user_subs_data);
         fetch(reqUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(subscriber),
+            body: JSON.stringify(user_subs_data),
         })
             .then((response) => {
                 if (response.ok) {
@@ -40,8 +57,6 @@ const Home = () => {
             registration.pushManager.getSubscription().then((subscription) => {
                 if (subscription) {
                     //save subscription on DB
-                    // console.log("old");
-                    // console.log(subscription);
                     store_sub(store_subscriber_url, subscription);
                 } else {
                     registration.pushManager
@@ -53,8 +68,6 @@ const Home = () => {
                         .then((subscription) => {
                             store_sub(store_subscriber_url, subscription);
                             //save subscription on DB
-                            // console.log("new");
-                            // console.log(subscription);
                         });
                 }
             });

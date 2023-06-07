@@ -30,8 +30,15 @@ const main = async () => {
             });
         })
     );
-    await StoreProductData(data_list);
+    const sale_list = await StoreProductData(data_list);
+    if (sale_list) {
+        //push_alarm sale_list
+        console.log("crawl_main");
+        console.log(sale_list);
+    }
     connection.end();
 };
 
 main();
+
+

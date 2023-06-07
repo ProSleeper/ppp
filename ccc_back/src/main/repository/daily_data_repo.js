@@ -62,6 +62,29 @@ const findByUrl = (url) => {
     });
 };
 
+// 0시가 되면 1시간 전인 어제의 23시 데이터와 비교해야한다.
+// 그래서 하루의 최저 가격을 찾는 것보다 먼저 23시 데이터를 가져와서 배열에 저장하자.
+
+
+
+
+// 이전 컬럼과 현재 컬럼 비교.
+const findByYesterdayPriceCompareTodayPrice = async (curr_time) => {
+    return new Promise((resolve, reject) => {
+        try {
+            connection.query(
+                `select dt.brand, dt.title, dt.url, CONCAT(dt.today, ' ${curr_time}:00:00') as change_date, dt.time0_price as sale_price, dy.time23_price as prev_price from daily_data dy inner join daily_data dt on dy.url = dt.url where DATE(dy.today) = CURDATE() - INTERVAL 1 DAY and DATE(dt.today) = CURDATE() and dy.time23_price > dt.time0_price`,
+                function (error, rows, fields) {
+                    if (error) reject(error);
+                    resolve(rows);
+                }
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    })
+};
+
 // NEXT DAY
 const findByMinPrice = () => {
     return new Promise((resolve, reject) => {
@@ -142,5 +165,6 @@ module.exports = {
     findAll,
     findByMinPrice,
     findByYesterday,
-    findBySale
+    findBySale,
+    findByYesterdayPriceCompareTodayPrice,
 };
