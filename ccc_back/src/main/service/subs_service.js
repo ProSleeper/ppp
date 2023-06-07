@@ -15,6 +15,7 @@ const add_subscriber = async (subscriber) => {
         const result = await subscriber_data_repo.save(subs_obj);
         return true;
     } catch (error) {
+        console.error(error);
         return false;
     }
 };
