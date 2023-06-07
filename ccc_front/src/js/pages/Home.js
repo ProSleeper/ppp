@@ -27,7 +27,7 @@ const Home = () => {
     }, []);
 
     const store_sub = (reqUrl, subscriber) => {
-        // const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber };
+        const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber };
         // console.log(subscriber);
         // console.log(user_subs_data);
         fetch(reqUrl, {
@@ -35,8 +35,8 @@ const Home = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(subscriber),
-            // body: JSON.stringify(user_subs_data),
+            // body: JSON.stringify(subscriber),
+            body: JSON.stringify(user_subs_data),
         })
             .then((response) => {
                 if (response.ok) {
