@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 const Home = () => {
     const use_url = process.env.REACT_APP_API_URL;
 
-    const store_subscriber_url = use_url + "/store_push_sub_data";
+    const store_subscriber_url = use_url + "/store_push_subs_data";
 
     const [cookies, setCookie, removeCookie] = useCookies();
 
@@ -29,20 +29,6 @@ const Home = () => {
     const store_sub = (reqUrl, subscriber) => {
         const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber.toJSON() };
 
-	//console.log(subscriber);
-	//console.log(subscriber.toJSON());
-/*
-	console.log(subscriber.endpoint);
-	console.log(subscriber.keys.p256dh);
-	console.log(subscriber.keys.auth);
-*/
-	//console.log(JSON.stringify(subscriber));
-	//console.log(user_subs_data.cookie);
-        //console.log(user_subs_data.endpoint);
-        //console.log(user_subs_data.keys.p256dh);
-        //console.log(user_subs_data.keys.auth);
-
-        console.log(user_subs_data);
         fetch(reqUrl, {
             method: "POST",
             headers: {
@@ -102,7 +88,6 @@ const Home = () => {
             </Button>
         </div>
     );
-};;
-
+};
 
 export default Home;
