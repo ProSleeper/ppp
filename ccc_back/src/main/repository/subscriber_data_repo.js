@@ -28,7 +28,7 @@ const remove = (data_obj) => {
 
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from registered_subscriber", function (error, rows, fields) {
+        connection.query("select * from subscriber_data", function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });
@@ -37,7 +37,7 @@ const findAll = () => {
 
 const findByCookie = (cookie) => {
     return new Promise((resolve, reject) => {
-        connection.query(`select * from registered_subscriber where cookie = '${cookie}'`, function (error, rows, fields) {
+        connection.query(`select * from subscriber_data where cookie = '${cookie}'`, function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });

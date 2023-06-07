@@ -15,21 +15,20 @@ const add_subscriber = async (subscriber) => {
         const result = await subscriber_data_repo.save(subs_obj);
         return true;
     } catch (error) {
-        console.error(error);
         return false;
     }
 };
 
 const get_total_subscriber = async () => {
-    return await url_data_repo.findAll();
+    return await subscriber_data_repo.findAll();
 };
 
-const getget_one_subscriber = async (url) => {
-    return await url_data_repo.findByUrl(url);
+const getget_one_subscriber = async (cookie) => {
+    return await subscriber_data_repo.findByCookie(cookie);
 };
 
 const remove_subscriber = async (url) => {
-    return await url_data_repo.remove(url);
+    return await subscriber_data_repo.remove(url);
 };
 
 module.exports = {
