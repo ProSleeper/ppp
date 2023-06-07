@@ -28,11 +28,15 @@ const Home = () => {
 
     const store_sub = (reqUrl, subscriber) => {
         const user_subs_data = { cookie: cookies.push_alarm_cookie, ...subscriber };
-        const { endpoint, keys } = subscriber;
+        const {
+            endpoint,
+            keys: { p256dh, auth },
+        } = subscriber;
 
         // console.log(subscriber);
         console.log(endpoint);
-        console.log(keys);
+        console.log(p256dh);
+        console.log(auth);
 
         console.log(user_subs_data);
         fetch(reqUrl, {
