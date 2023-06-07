@@ -6,10 +6,10 @@ const add_subscriber = async (subscriber) => {
         const {
             cookie,
             endpoint,
-            expiration_time,
+            expirationTime,
             keys: { p256dh, auth },
         } = subscriber;
-        console.log(subscriber);
+        const expiration_time = expirationTime;
         const subs_obj = new subscriber_data(cookie, endpoint, expiration_time, p256dh, auth);
         console.log(subs_obj);
         const result = await subscriber_data_repo.save(subs_obj);
