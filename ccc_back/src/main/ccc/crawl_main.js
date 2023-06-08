@@ -1,13 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 const { StoreProductData, read_url } = require("./crawl_service.js");
+const { push_alarm } = require("./push_test.js");
+const subs_service = require("../service/subs_service.js");
 const { fetchHtml, extractData } = require("../common/utils.js");
 const { connection } = require("../repository/mysql_connector.js");
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
-const main = async () => {
+const main = async (push_alarm) => {
     // module.exports = async () => {
     const total_url = await read_url();
     const data_list = await Promise.all(
@@ -30,15 +32,23 @@ const main = async () => {
             });
         })
     );
-    const sale_list = await StoreProductData(data_list);
-    if (sale_list) {
+
+    const product_sale_list = await StoreProductData(data_list);
+    if (product_sale_list) {
+        const total_subscriber_list = await subs_service.get_total_subscriber();
         //push_alarm sale_list
+        await push_alarm(product_sale_list, total_subscriber_list);
         console.log("crawl_main");
-        console.log(sale_list);
+        console.log(product_sale_list);
+    } else {
+        console.log("not sale");
+        // const total_subscriber_list = await subs_service.get_total_subscriber();
+        // //push_alarm sale_list
+        // await push_alarm(product_sale_list, total_subscriber_list);
     }
     connection.end();
 };
 
-main();
+main(push_alarm);
 
 
