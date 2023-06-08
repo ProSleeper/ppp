@@ -42,9 +42,9 @@ const main = async (push_alarm) => {
         console.log(product_sale_list);
     } else {
         console.log("not sale");
-        // const total_subscriber_list = await subs_service.get_total_subscriber();
-        // //push_alarm sale_list
-        // await push_alarm(product_sale_list, total_subscriber_list);
+        const total_subscriber_list = await subs_service.get_total_subscriber();
+        //push_alarm sale_list
+        await push_alarm(product_sale_list, total_subscriber_list);
     }
     connection.end();
 };

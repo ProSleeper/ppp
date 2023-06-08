@@ -8,8 +8,6 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
 
     webpush.setVapidDetails("mailto:ingn@nate.com", keys.publicKey, keys.privateKey);
 
-    // const total_subs_data_list = await subs_service.get_total_subscriber();
-    // console.log(total_subs_data_list);
 
     for (const subscriber_data of total_subscriber_list) {
         try {
@@ -25,7 +23,10 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
                 // JSON.stringify(product_sale_list)
             );
         } catch (error) {
-            console.error(error);
+            //다른 에러도 발생하겠지만, 보통 사용자의 구독 정보가 삭제, 변경되면 발생하는 에러가 출력된다.
+            // console.error(error); // 에러 출력이 너무 길어서 주석
+            console.error(`${subscriber_data.cookie} : 이 쿠키값의 구독객체 삭제, 변경 발생.`);
+            //여기에는 이 구독객체의 정보를 삭제하는 코드나 list에 저장해서 오류 난 값을 db에서 삭제가 가능하도록 하자.
         }
     }
 
