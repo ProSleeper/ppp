@@ -15,8 +15,10 @@ const save = (data_obj) => {
 
 const remove = (data_obj) => {
     return new Promise((resolve, reject) => {
+        // delete from 테이블명 where 컬럼명 in (컬럼명내용1, 컬럼명내용2);
         connection.query(
             `delete from ${data_obj.constructor.name} where ?`,
+            // `delete from ${data_obj.constructor.name} where endpoint in (?)`,
             { cookie: data_obj.data.cookie },
             function (error, rows, fields) {
                 if (error) reject(error);
