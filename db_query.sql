@@ -209,7 +209,7 @@ create table subscriber_data (
 	id int AUTO_INCREMENT,
 	created datetime not null,
 	cookie varchar(255) unique,
-	endpoint varchar(255) not null,
+	endpoint varchar(255) unique,
   expiration_time datetime,
 	p256dh varchar(255) not null,
 	auth varchar(255) not null,

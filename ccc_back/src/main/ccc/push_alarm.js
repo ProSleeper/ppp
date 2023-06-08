@@ -9,25 +9,50 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
     webpush.setVapidDetails("mailto:ingn@nate.com", keys.publicKey, keys.privateKey);
     const wrong_subs_obj = [];
 
+    // product_sale_list는 아래 배열 처럼 출력 됨.
+    // [
+    //     {
+    //         brand: "spao",
+    //         title: "[데일리지] 루즈핏 진_SPTJD23C52",
+    //         url: "https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/",
+    //         change_date: "2023-06-07 15:00:00",
+    //         sale_price: 19900,
+    //         prev_price: 29900,
+    //     },
+    //     {
+    //         brand: "spao",
+    //         title: "[데일리지] 루즈핏 진_SPTJD23C52",
+    //         url: "https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/",
+    //         change_date: "2023-06-07 15:00:00",
+    //         sale_price: "39900",
+    //         prev_price: "49900",
+    //     },
+    // ];
+    product_sale_list = [];
+    product_sale_list.push(1);
+    product_sale_list.push(2);
     for (const subscriber_data of total_subscriber_list) {
-        try {
-            await webpush.sendNotification(
-                {
-                    endpoint: subscriber_data.endpoint,
-                    keys: {
-                        p256dh: subscriber_data.p256dh,
-                        auth: subscriber_data.auth,
+        for (const sale_data of product_sale_list) {
+            try {
+                await webpush.sendNotification(
+                    {
+                        endpoint: subscriber_data.endpoint,
+                        keys: {
+                            p256dh: subscriber_data.p256dh,
+                            auth: subscriber_data.auth,
+                        },
                     },
-                },
-                "company_run"
-                // JSON.stringify(product_sale_list)
-            );
-        } catch (error) {
-            //다른 에러도 발생하겠지만, 보통 사용자의 구독 정보가 삭제, 변경되면 발생하는 에러가 출력된다.
-            // console.error(error); // 에러 출력이 너무 길어서 주석
-            console.error(`${subscriber_data.cookie} : 이 쿠키값의 구독객체 삭제, 변경 발생.`);
-            wrong_subs_obj.push(subscriber_data.endpoint);
-            //여기에는 이 구독객체의 정보를 삭제하는 코드나 list에 저장해서 오류 난 값을 db에서 삭제가 가능하도록 하자.
+                    "https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/"
+                    // sale_data.url
+                    // JSON.stringify(product_sale_list)
+                );
+            } catch (error) {
+                //다른 에러도 발생하겠지만, 보통 사용자의 구독 정보가 삭제, 변경되면 발생하는 에러가 출력된다.
+                // console.error(error); // 에러 출력이 너무 길어서 주석
+                console.error(`${subscriber_data.cookie} : 이 쿠키값의 구독객체 삭제, 변경 발생.`);
+                wrong_subs_obj.push(subscriber_data.endpoint);
+                //여기에는 이 구독객체의 정보를 삭제하는 코드나 list에 저장해서 오류 난 값을 db에서 삭제가 가능하도록 하자.
+            }
         }
     }
     return wrong_subs_obj;

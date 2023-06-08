@@ -127,6 +127,7 @@ const findByYesterday = () => {
     });
 };
 
+
 // 이전 컬럼과 현재 컬럼 비교.
 const findBySale = async (curr_time) => {
     return new Promise((resolve, reject) => {

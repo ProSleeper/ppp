@@ -73,12 +73,30 @@ self.addEventListener("message", (event) => {
 self.addEventListener("push", (event) => {
     console.log("push regist");
     const title = event.data.text();
-    const options = {
-        vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
+
+    event.waitUntil(self.registration.showNotification(title));
 });
 
+self.addEventListener("notificationclick", (event) => {
+    event.notification.close();
+
+    event.waitUntil(
+        clients.matchAll({ type: "window" }).then((clientList) => {
+            // 알림을 클릭한 브라우저 창이 이미 열려있는지 확인
+            for (let i = 0; i < clientList.length; i++) {
+                const client = clientList[i];
+                if (client.url === event.notification.data && "focus" in client) {
+                    return client.focus();
+                }
+            }
+
+            // 열려있는 브라우저 창이 없을 경우 새로운 창을 열고 해당 URL로 이동
+            if (clients.openWindow) {
+                return clients.openWindow(event.notification.data);
+            }
+        })
+    );
+});
 
 
 //서버에서 json 으로 보내서 받았을 때 보여주기

@@ -9,7 +9,7 @@ const { connection } = require("../repository/mysql_connector.js");
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../config/CCC.json"), "utf8"));
 const parse_brand_selector = config.parse_brand_selector;
 
-const main = async (push_alarm) => {
+const main = async () => {
     // module.exports = async () => {
     const total_url = await read_url();
     const data_list = await Promise.all(
@@ -55,6 +55,6 @@ const main = async (push_alarm) => {
     connection.end();
 };
 
-main(push_alarm);
+main();
 
 
