@@ -45,12 +45,14 @@ const main = async () => {
         console.log(product_sale_list);
     } else {
         console.log("not sale");
+        /*
         const total_subscriber_list = await subs_service.get_total_subscriber();
         //push_alarm sale_list
         const wrong_subs_obj = await push_alarm(product_sale_list, total_subscriber_list);
         if (wrong_subs_obj.length > 0) {
             await subs_service.remove_subscriber_by_endpoint(wrong_subs_obj);
         }
+        */
     }
     connection.end();
 };
