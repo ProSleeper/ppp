@@ -81,7 +81,7 @@ self.addEventListener("notificationclick", (event) => {
     event.notification.close();
 
     event.waitUntil(
-        clients.matchAll({ type: "window" }).then((clientList) => {
+        self.clients.matchAll({ type: "window" }).then((clientList) => {
             // 알림을 클릭한 브라우저 창이 이미 열려있는지 확인
             for (let i = 0; i < clientList.length; i++) {
                 const client = clientList[i];
@@ -91,8 +91,8 @@ self.addEventListener("notificationclick", (event) => {
             }
 
             // 열려있는 브라우저 창이 없을 경우 새로운 창을 열고 해당 URL로 이동
-            if (clients.openWindow) {
-                return clients.openWindow(event.notification.data);
+            if (self.clients.openWindow) {
+                return self.clients.openWindow(event.notification.data);
             }
         })
     );
