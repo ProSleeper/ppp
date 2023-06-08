@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { StoreProductData, read_url } = require("./crawl_service.js");
-const { push_alarm } = require("./push_test.js");
+const { push_alarm } = require("./push_alarm.js");
 const subs_service = require("../service/subs_service.js");
 const { fetchHtml, extractData } = require("../common/utils.js");
 const { connection } = require("../repository/mysql_connector.js");
@@ -39,15 +39,18 @@ const main = async (push_alarm) => {
         //push_alarm sale_list
         const wrong_subs_obj = await push_alarm(product_sale_list, total_subscriber_list);
         if (wrong_subs_obj.length > 0) {
-            await subs_service.remove_subscriber();
+            await subs_service.remove_subscriber_by_endpoint(wrong_subs_obj);
         }
         console.log("crawl_main");
         console.log(product_sale_list);
     } else {
         console.log("not sale");
-        // const total_subscriber_list = await subs_service.get_total_subscriber();
-        // //push_alarm sale_list
-        // await push_alarm(product_sale_list, total_subscriber_list);
+        const total_subscriber_list = await subs_service.get_total_subscriber();
+        //push_alarm sale_list
+        const wrong_subs_obj = await push_alarm(product_sale_list, total_subscriber_list);
+        if (wrong_subs_obj.length > 0) {
+            await subs_service.remove_subscriber_by_endpoint(wrong_subs_obj);
+        }
     }
     connection.end();
 };

@@ -30,7 +30,6 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
             //여기에는 이 구독객체의 정보를 삭제하는 코드나 list에 저장해서 오류 난 값을 db에서 삭제가 가능하도록 하자.
         }
     }
-
     return wrong_subs_obj;
     //단순 텍스트만 푸시 보내기
     // webpush.sendNotification(

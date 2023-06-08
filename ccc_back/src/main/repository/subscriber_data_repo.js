@@ -18,8 +18,22 @@ const remove = (data_obj) => {
         // delete from 테이블명 where 컬럼명 in (컬럼명내용1, 컬럼명내용2);
         connection.query(
             `delete from ${data_obj.constructor.name} where ?`,
-            // `delete from ${data_obj.constructor.name} where endpoint in (?)`,
             { cookie: data_obj.data.cookie },
+            function (error, rows, fields) {
+                if (error) reject(error);
+                resolve("delete ok");
+            }
+        );
+    });
+};
+
+const removeByEndpoint = (data_obj) => {
+    return new Promise((resolve, reject) => {
+        // delete from 테이블명 where 컬럼명 in (컬럼명내용1, 컬럼명내용2);
+        const placeholders = data_obj.map(() => "?").join(",");
+        connection.query(
+            `DELETE FROM subscriber_data WHERE endpoint IN (${placeholders})`,
+            data_obj,
             function (error, rows, fields) {
                 if (error) reject(error);
                 resolve("delete ok");
@@ -49,6 +63,7 @@ const findByCookie = (cookie) => {
 module.exports = {
     save,
     remove,
+    removeByEndpoint,
     findByCookie,
     findAll,
 };

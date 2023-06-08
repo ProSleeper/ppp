@@ -27,8 +27,12 @@ const getget_one_subscriber = async (cookie) => {
     return await subscriber_data_repo.findByCookie(cookie);
 };
 
-const remove_subscriber = async (url) => {
-    return await subscriber_data_repo.remove(url);
+const remove_subscriber = async (data_obj) => {
+    return await subscriber_data_repo.remove(data_obj);
+};
+
+const remove_subscriber_by_endpoint = async (data_obj) => {
+    return await subscriber_data_repo.removeByEndpoint(data_obj);
 };
 
 module.exports = {
@@ -36,4 +40,5 @@ module.exports = {
     get_total_subscriber,
     getget_one_subscriber,
     remove_subscriber,
+    remove_subscriber_by_endpoint,
 };
