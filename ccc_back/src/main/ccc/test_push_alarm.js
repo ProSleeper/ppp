@@ -14,16 +14,21 @@ const test_main = async () => {
     // console.log(total_subs_data_list);
 
     for (const subscriber_data of total_subs_data_list) {
-        await webpush.sendNotification(
-            {
-                endpoint: subscriber_data.endpoint,
-                keys: {
-                    p256dh: subscriber_data.p256dh,
-                    auth: subscriber_data.auth,
+        try {
+            await webpush.sendNotification(
+                {
+                    endpoint: subscriber_data.endpoint,
+                    keys: {
+                        p256dh: subscriber_data.p256dh,
+                        auth: subscriber_data.auth,
+                    },
                 },
-            },
-            `mycookie_value: ${subscriber_data.cookie}`
-        );
+                `mycookie_value: ${subscriber_data.cookie}`
+            );
+        } catch (error) {
+            console.error(error);
+        }
+        
     }
     connection.end();
 
