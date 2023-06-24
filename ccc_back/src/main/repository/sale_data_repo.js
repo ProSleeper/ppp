@@ -35,7 +35,7 @@ const remove = (url) => {
 
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from sale_data order by change_date", function (error, rows, fields) {
+        connection.query("select * from sale_data order by change_date desc", function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });
