@@ -33,7 +33,7 @@ const save = (data_obj) => {
 
 const remove = (url) => {
     return new Promise((resolve, reject) => {
-        connection.query(`delete from url_data where url = '${url}'`, function (error, rows, fields) {
+        connection.query(`delete from url_data where ?`, { url: url }, function (error, rows, fields) {
             if (error) reject(error);
             resolve("delete ok");
         });

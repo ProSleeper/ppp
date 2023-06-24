@@ -1,16 +1,31 @@
 const service = require("../service/service.js");
 const va_service = require("../va/va_data_service.js");
+const sale_service = require("../service/sale_service.js");
 
 module.exports = (app) => {
+    sale_controller(app);
     cloth_controller(app);
     va_controller(app);
+};
+
+const sale_controller = (app) => {
+    app.get("/print_total_sale_data", async (req, res) => {
+        const total_sale_data = await sale_service.get_total_sale_data();
+        res.send(total_sale_data);
+    });
+
+    app.delete("/remove_sale_data", async (req, res) => {
+        const received_remove_sale_data_url = req.body.url;
+        const deleted_result = await sale_service.remove_sale_data(received_remove_sale_data_url);
+        res.send(deleted_result);
+    });
 };
 
 const cloth_controller = (app) => {
     app.post("/store_url", async (req, res) => {
         const receive_urls = req.body.url;
-        result = await service.add_url(receive_urls);
-        res.send(result);
+        const add_result = await service.add_url(receive_urls);
+        res.send(add_result);
     });
 
     app.get("/print_total_url", async (req, res) => {
@@ -20,7 +35,7 @@ const cloth_controller = (app) => {
 
     app.delete("/remove_url", async (req, res) => {
         const receive_remove_url = req.body.url;
-        move_result = await service.move_and_delete_url(receive_remove_url);
+        const move_result = await service.move_and_delete_url(receive_remove_url);
         res.send(move_result);
     });
 };
@@ -28,8 +43,8 @@ const cloth_controller = (app) => {
 const va_controller = (app) => {
     app.post("/store_va_url", async (req, res) => {
         const receive_urls = req.body.url;
-        result = await va_service.StoreVAUrl(receive_urls);
-        res.send(result);
+        const store_result = await va_service.StoreVAUrl(receive_urls);
+        res.send(store_result);
     });
 
     app.get("/print_total_va_url", async (req, res) => {
@@ -39,7 +54,7 @@ const va_controller = (app) => {
 
     app.delete("/remove_va_url", async (req, res) => {
         const receive_remove_url = req.body.url;
-        move_result = await va_service.MoveAndDeleteUrl(receive_remove_url);
+        const move_result = await va_service.MoveAndDeleteUrl(receive_remove_url);
         res.send(move_result);
     });
 };

@@ -42,7 +42,7 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
                             auth: subscriber_data.auth,
                         },
                     },
-                    "https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/"
+                    sale_data.title
                     // sale_data.url
                     // JSON.stringify(product_sale_list)
                 );

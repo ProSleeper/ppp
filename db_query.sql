@@ -186,8 +186,6 @@ CREATE TABLE sale_data (
   prev_price int not null
 );
 
-index, title, url, add_data,
-
 
 CREATE TABLE va_data (
   ID int NOT NULL AUTO_INCREMENT,

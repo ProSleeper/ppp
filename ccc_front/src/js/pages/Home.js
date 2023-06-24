@@ -1,8 +1,9 @@
 // Home.js
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import UrlTableSale from "./../module/Url_table_sale";
 
 const Home = () => {
     const use_url = process.env.REACT_APP_API_URL;
@@ -75,6 +76,26 @@ const Home = () => {
         });
     };
 
+    const print_total_url = use_url + "/print_total_sale_data";
+    const remove_url = use_url + "/remove_sale_data";
+
+    const table_header = {
+        brand: "Brand",
+        title: "Title",
+        url: "Url",
+        change_date: "Change Date",
+        sale_price: "Sale Price",
+        prev_price: "Prev Price",
+        delete: "Delete",
+    };
+
+    const [data, setData] = useState([]);
+    const url_data = {
+        data: data,
+        setData: setData,
+        print_total_url: print_total_url,
+    };
+
     return (
         <div>
             <h1>Welcome to Home</h1>
@@ -86,6 +107,7 @@ const Home = () => {
             >
                 Notification
             </Button>
+            <UrlTableSale table_header={table_header} url_data={url_data} remove_va_url={remove_url}></UrlTableSale>
         </div>
     );
 };

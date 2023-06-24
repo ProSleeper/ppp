@@ -20,11 +20,11 @@ const save = (data_obj) => {
     });
 };
 
-const remove = (data_obj) => {
+const remove = (url) => {
     return new Promise((resolve, reject) => {
         connection.query(
-            `delete from ${data_obj.constructor.name} where ?`,
-            { url: data_obj.data.url },
+            `delete from sale_data where ?`,
+            { url: url },
             function (error, rows, fields) {
                 if (error) reject(error);
                 resolve("delete ok");
@@ -35,16 +35,7 @@ const remove = (data_obj) => {
 
 const findAll = () => {
     return new Promise((resolve, reject) => {
-        connection.query("select * from sale_data", function (error, rows, fields) {
-            if (error) reject(error);
-            resolve(rows);
-        });
-    });
-};
-
-const findByUrl = (url) => {
-    return new Promise((resolve, reject) => {
-        connection.query(`select * from sale_data where url = '${url}'`, function (error, rows, fields) {
+        connection.query("select * from sale_data order by change_date", function (error, rows, fields) {
             if (error) reject(error);
             resolve(rows);
         });
@@ -54,6 +45,5 @@ const findByUrl = (url) => {
 module.exports = {
     save,
     remove,
-    findByUrl,
     findAll,
 };
