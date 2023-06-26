@@ -32,6 +32,7 @@ const UrlTableSale = (props) => {
 
     const toWonBill = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+    const td_Height = 80;
     return (
         <div>
             <Table striped bordered hover>
@@ -41,15 +42,69 @@ const UrlTableSale = (props) => {
                 <tbody>
                     {props.url_data.data.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.brand}</td>
-                            <td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "visible",
+                                }}
+                            >
+                                {item.brand}
+                            </td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "visible",
+                                }}
+                            >
                                 <a href={item.url} target="_blank" rel="noreferrer">
                                     {item.title}
                                 </a>
                             </td>
-                            <td>{item.change_date}</td>
-                            <td>{toWonBill(item.sale_price)}원</td>
-                            <td>{toWonBill(item.prev_price)}원</td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "visible",
+                                }}
+                            >
+                                {(() => {
+                                    const date = new Date(item.change_date);
+                                    let hours = date.getHours();
+                                    if (hours === 24) {
+                                        hours = "00";
+                                    }
+                                    return `${date.getFullYear().toString().substr(-2)}/${(date.getMonth() + 1)
+                                        .toString()
+                                        .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")} ${hours
+                                        .toString()
+                                        .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+                                })()}
+                            </td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "visible",
+                                }}
+                            >
+                                {toWonBill(item.sale_price)}원
+                            </td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "visible",
+                                }}
+                            >
+                                {toWonBill(item.prev_price)}원
+                            </td>
                             <td>
                                 <button onClick={() => handleDelete(item.url)}>
                                     <i className="fas fa-times">Del</i>
