@@ -57,11 +57,14 @@ const UrlTableSale = (props) => {
                                     height: td_Height,
                                     wordWrap: "break-word",
                                     whiteSpace: "pre-wrap",
-                                    overflow: "visible",
+                                    overflow: "hidden",
+                                    // display: "-webkit-box",
+                                    // WebkitLineClamp: 3,
+                                    // WebkitBoxOrient: "vertical",
                                 }}
                             >
                                 <a href={item.url} target="_blank" rel="noreferrer">
-                                    {item.title}
+                                    {item.title.length > 10 ? item.title.substring(0, 10) + "..." : item.title}
                                 </a>
                             </td>
                             <td
@@ -100,7 +103,7 @@ const UrlTableSale = (props) => {
                                     height: td_Height,
                                     wordWrap: "break-word",
                                     whiteSpace: "pre-wrap",
-                                    overflow: "visible",
+                                    overflow: "hidden",
                                 }}
                             >
                                 {toWonBill(item.prev_price)}원
