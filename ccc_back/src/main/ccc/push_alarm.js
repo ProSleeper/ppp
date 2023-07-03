@@ -28,9 +28,9 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
     //         prev_price: "49900",
     //     },
     // ];
-    product_sale_list = [];
-    product_sale_list.push(1);
-    product_sale_list.push(2);
+    // product_sale_list = [];
+    // product_sale_list.push(1);
+    // product_sale_list.push(2);
     for (const subscriber_data of total_subscriber_list) {
         for (const sale_data of product_sale_list) {
             try {
