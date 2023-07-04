@@ -61,18 +61,21 @@ flush privileges;
 */
 
 CREATE TABLE url_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
-  url VARCHAR(700) NOT NULL,
-  PRIMARY key(url)
+  url VARCHAR(700) unique,
+  PRIMARY key(ID)
 );
 
 CREATE TABLE deleted_url_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
-  url VARCHAR(700) NOT NULL,
-  PRIMARY key(url)
+  url VARCHAR(700) unique,
+  PRIMARY key(ID)
 );
 
 CREATE TABLE daily_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
   url VARCHAR(700) NOT NULL,
@@ -101,10 +104,11 @@ CREATE TABLE daily_data (
   time21_price int,
   time22_price int,
   time23_price int,
-  PRIMARY KEY (url, today)
+  PRIMARY KEY (ID)
 );
 
 CREATE TABLE prev_daily_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
   url VARCHAR(700) NOT NULL,
@@ -133,14 +137,15 @@ CREATE TABLE prev_daily_data (
   time21_price int,
   time22_price int,
   time23_price int,
-  PRIMARY KEY (url, today)
+  PRIMARY KEY (ID)
 );
 
 
 CREATE TABLE monthly_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
-  url VARCHAR(700) NOT NULL,
+  url VARCHAR(700) unique,
   month DATE not null,
   day1_price int,
   day2_price int,
@@ -173,17 +178,19 @@ CREATE TABLE monthly_data (
   day29_price int,
   day30_price int,
   day31_price int,
-  PRIMARY KEY (url)
+  PRIMARY KEY (ID)
 );
 
 
 CREATE TABLE sale_data (
+  ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
   title VARCHAR(255) NOT NULL,
   url VARCHAR(700) NOT NULL,
   change_date DATETIME not null,
   sale_price int not null,
-  prev_price int not null
+  prev_price int not null,
+  PRIMARY KEY(ID)
 );
 
 
