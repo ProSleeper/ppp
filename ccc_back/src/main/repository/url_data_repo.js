@@ -31,6 +31,19 @@ const save = (data_obj) => {
     });
 };
 
+const updateLowestPrice = (url, price) => {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            `update url_data set lowest_price = ? where (lowest_price = 0 or lowest_price > ?) and url = ?`,
+            [price, price, url],
+            function (error, rows, fields) {
+                if (error) reject(error);
+                resolve("save ok");
+            }
+        );
+    });
+};
+
 const remove = (url) => {
     return new Promise((resolve, reject) => {
         connection.query(`delete from url_data where ?`, { url: url }, function (error, rows, fields) {
@@ -77,4 +90,5 @@ module.exports = {
     findByUrl,
     findAll,
     move,
+    updateLowestPrice,
 };

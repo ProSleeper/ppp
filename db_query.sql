@@ -64,8 +64,11 @@ CREATE TABLE url_data (
   ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
   url VARCHAR(700) unique,
+  lowest_price int not null,
+  highest_price int not null,
   PRIMARY key(ID)
 );
+
 
 CREATE TABLE deleted_url_data (
   ID int NOT NULL AUTO_INCREMENT,
@@ -140,7 +143,6 @@ CREATE TABLE prev_daily_data (
   PRIMARY KEY (ID)
 );
 
-
 CREATE TABLE monthly_data (
   ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
@@ -181,7 +183,6 @@ CREATE TABLE monthly_data (
   PRIMARY KEY (ID)
 );
 
-
 CREATE TABLE sale_data (
   ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
@@ -192,7 +193,6 @@ CREATE TABLE sale_data (
   prev_price int not null,
   PRIMARY KEY(ID)
 );
-
 
 CREATE TABLE va_data (
   ID int NOT NULL AUTO_INCREMENT,
@@ -220,7 +220,6 @@ create table subscriber_data (
 	auth varchar(255) not null,
 	primary key(id)
 );
-
 
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/595039');
 insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/3128322');

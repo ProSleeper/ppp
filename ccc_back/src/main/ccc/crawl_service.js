@@ -22,6 +22,8 @@ const StoreProductData = async (data_list) => {
         for (const data of sale_list) {
             const obj = new sale_data(data);
             const result = await sale_data_repo.save(obj);
+            await url_data_repo.updateLowestPrice(obj.data.url, obj.data.sale_price);
+            //이 부분에 현재 할인가격과 최저가를 비교해서 현재 할인가격이 최저가보다 낮으면 최저가 업데이트.
         }
     };
 
@@ -29,6 +31,7 @@ const StoreProductData = async (data_list) => {
     if (curr_time >= 0) {
         let sale_list = undefined;
         if (curr_time === 0) {
+            //sale_data 테이블도 최저,최고가 컬럼을 만들고 findByYesterdayPriceCompareTodayPrice 쿼리와 findBySale 쿼리를 실행할때 url_data의 최저가와 비교를해서 해당 값을 채워넣는 방식으로 하자.
             sale_list = await daily_data_repo.findByYesterdayPriceCompareTodayPrice(curr_time);
             await insert_sale_data(sale_list);
             const min_price_data_list = await daily_data_repo.findByMinPrice();
