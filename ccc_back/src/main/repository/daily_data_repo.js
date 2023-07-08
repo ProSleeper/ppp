@@ -74,6 +74,7 @@ const findByYesterdayPriceCompareTodayPrice = async (curr_time) => {
         try {
             connection.query(
                 `select dt.brand, dt.title, dt.url, CONCAT(dt.today, ' ${curr_time}:00:00') as change_date, dt.time0_price as sale_price, dy.time23_price as prev_price from daily_data dy inner join daily_data dt on dy.url = dt.url where DATE(dy.today) = CURDATE() - INTERVAL 1 DAY and DATE(dt.today) = CURDATE() and dy.time23_price > dt.time0_price`,
+                // `select dt.brand, dt.title, dt.url, CONCAT(dt.today, ' ${curr_time}:00:00') as change_date, dt.time0_price as sale_price, dy.time23_price as prev_price, ifnull((select lowest_price from url_data where url=dt.url and lowest_price != 0 and lowest_price < dt.time0_price), dt.time0_price) as lowest_price from daily_data dy inner join daily_data dt on dy.url = dt.url where DATE(dy.today) = CURDATE() - INTERVAL 1 DAY and DATE(dt.today) = CURDATE() and dy.time23_price > dt.time0_price`
                 function (error, rows, fields) {
                     if (error) reject(error);
                     resolve(rows);
@@ -82,7 +83,7 @@ const findByYesterdayPriceCompareTodayPrice = async (curr_time) => {
         } catch (error) {
             console.error(error);
         }
-    })
+    });
 };
 
 // NEXT DAY
@@ -127,7 +128,6 @@ const findByYesterday = () => {
     });
 };
 
-
 // 이전 컬럼과 현재 컬럼 비교.
 const findBySale = async (curr_time) => {
     return new Promise((resolve, reject) => {
@@ -135,6 +135,7 @@ const findBySale = async (curr_time) => {
         try {
             connection.query(
                 `select brand, title, url, CONCAT(today, ' ${curr_time}:00:00') as change_date, time${curr_time}_price as sale_price, time${prev_time}_price as prev_price from daily_data where time${prev_time}_price > time${curr_time}_price`,
+                // `select brand, title, url, CONCAT(today, ' ${curr_time}:00:00') as change_date, time${curr_time}_price as sale_price, time${prev_time}_price as prev_price, ifnull((select lowest_price from url_data where url=dt.url and lowest_price != 0 and lowest_price < sale_price), sale_price) as lowest_price from daily_data as dt where time${prev_time}_price > time${curr_time}_price`,
                 function (error, rows, fields) {
                     if (error) reject(error);
                     resolve(rows);
@@ -143,7 +144,7 @@ const findBySale = async (curr_time) => {
         } catch (error) {
             console.error(error);
         }
-    })
+    });
 };
 
 const remove_old_data = () => {
