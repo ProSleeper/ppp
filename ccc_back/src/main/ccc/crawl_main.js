@@ -34,19 +34,14 @@ const main = async () => {
     );
 
     const product_sale_list = await StoreProductData(data_list);
-    console.log("product");
-    console.log(product_sale_list);
-    // product_sale_list = null;
     if (product_sale_list) {
         const total_subscriber_list = await subs_service.get_total_subscriber();
         //push_alarm sale_list
-        console.log("do if")
+        console.log(total_subscriber_list);
         const wrong_subs_obj = await push_alarm(product_sale_list, total_subscriber_list);
         if (wrong_subs_obj.length > 0) {
             await subs_service.remove_subscriber_by_endpoint(wrong_subs_obj);
         }
-        console.log("crawl_main");
-        console.log(product_sale_list);
     } else {
         console.log("not sale");
         /*
