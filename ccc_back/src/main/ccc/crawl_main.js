@@ -40,6 +40,7 @@ const main = async () => {
     if (product_sale_list) {
         const total_subscriber_list = await subs_service.get_total_subscriber();
         //push_alarm sale_list
+        console.log("do if")
         const wrong_subs_obj = await push_alarm(product_sale_list, total_subscriber_list);
         if (wrong_subs_obj.length > 0) {
             await subs_service.remove_subscriber_by_endpoint(wrong_subs_obj);

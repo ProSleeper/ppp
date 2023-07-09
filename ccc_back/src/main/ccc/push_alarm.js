@@ -32,7 +32,9 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
     // product_sale_list.push(1);
     // product_sale_list.push(2);
     for (const subscriber_data of total_subscriber_list) {
+        console.log("do for");
         for (const sale_data of product_sale_list) {
+            console.log("do forfor");
             try {
                 await webpush.sendNotification(
                     {
