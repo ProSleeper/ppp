@@ -69,7 +69,6 @@ CREATE TABLE url_data (
   PRIMARY key(ID)
 );
 
-
 CREATE TABLE deleted_url_data (
   ID int NOT NULL AUTO_INCREMENT,
   brand VARCHAR(255) not null,
@@ -221,19 +220,19 @@ create table subscriber_data (
 	primary key(id)
 );
 
-insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/595039');
-insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/3128322');
-insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/3128245');
-insert into url_data(brand, url) values('musinsa', 'https://www.musinsa.com/app/goods/2091749');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?displayNo=&goodsNo=NQ31145962&stonType=P&storeNo=83&siteNo=50706');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145684&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31146507&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145951&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145959&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145988&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145977&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145978&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#');
-insert into url_data(brand, url) values('spao', 'https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/');
-insert into url_data(brand, url) values('spao', 'https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EC%9B%90%ED%84%B1-%EC%99%80%EC%9D%B4%EB%93%9C-%EC%A7%84sptjd23c54/10022/category/187/display/1/#none');
-insert into url_data(brand, url) values('elandmall', 'https://www.elandmall.co.kr/i/item?itemNo=2212607800&lowerVendNo=LV16003579&pageId=1682653534901&preCornerNo=R01404001_srchOutcome');
-insert into url_data(brand, url) values('elandmall', 'https://www.elandmall.co.kr/i/item?itemNo=2212615377&lowerVendNo=LV16003579&pageId=1682653559468&preCornerNo=R01404001_srchOutcome');
+insert into url_data(brand, url, lowest_price, highest_price) values('musinsa', 'https://www.musinsa.com/app/goods/595039', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('musinsa', 'https://www.musinsa.com/app/goods/3128322', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('musinsa', 'https://www.musinsa.com/app/goods/3128245', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('musinsa', 'https://www.musinsa.com/app/goods/2091749', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?displayNo=&goodsNo=NQ31145962&stonType=P&storeNo=83&siteNo=50706', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145684&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31146507&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145951&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145959&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145988&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145977&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('uniqlo', 'https://store-kr.uniqlo.com/display/showDisplayCache.lecs?goodsNo=NQ31145978&infw_disp_no_sct_cd=10&stonType=P&storeNo=83&siteNo=50706#', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('spao', 'https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EB%A3%A8%EC%A6%88%ED%95%8F-%EC%A7%84sptjd23c52/10010/category/187/display/1/', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('spao', 'https://spao.com/product/%EB%8D%B0%EC%9D%BC%EB%A6%AC%EC%A7%80-%EC%9B%90%ED%84%B1-%EC%99%80%EC%9D%B4%EB%93%9C-%EC%A7%84sptjd23c54/10022/category/187/display/1/#none', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('elandmall', 'https://www.elandmall.co.kr/i/item?itemNo=2212607800&lowerVendNo=LV16003579&pageId=1682653534901&preCornerNo=R01404001_srchOutcome', 0, 0);
+insert into url_data(brand, url, lowest_price, highest_price) values('elandmall', 'https://www.elandmall.co.kr/i/item?itemNo=2212615377&lowerVendNo=LV16003579&pageId=1682653559468&preCornerNo=R01404001_srchOutcome', 0, 0);

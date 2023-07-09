@@ -24,14 +24,14 @@ const StoreProductData = async (data_list) => {
         for (const data of sale_list) {
             const obj = new sale_data(data);
             const result = await sale_data_repo.save(obj);
-            const same_url_data = await url_data_repo.findByUrl(obj.data.url);
-            let lowest_price = 0;
-            if (obj.data.sale_price < same_url_data.lowest_price) {
-                lowest_price = obj.data.sale_price;
+            const [same_url_data] = await url_data_repo.findByUrl(obj.data.url);
+            console.log(obj.data.sale_price);
+            console.log(same_url_data.lowest_price);
+            if (obj.data.sale_price < same_url_data.lowest_price || same_url_data.lowest_price == 0) {
+                await url_data_repo.updateLowestPrice(obj.data.url, obj.data.sale_price);
+                const sale_dto = new sale_data_dto(obj.data, obj.data.sale_price);
+                sale_dto_list.push(sale_dto);
             }
-            const sale_dto = new sale_data_dto(obj.data, lowest_price);
-            await url_data_repo.updateLowestPrice(obj.data.url, obj.data.sale_price);
-            sale_dto_list.push(sale_dto);
             //이 부분에 현재 할인가격과 최저가를 비교해서 현재 할인가격이 최저가보다 낮으면 최저가 업데이트.
         }
         return sale_dto_list;

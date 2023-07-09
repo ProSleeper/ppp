@@ -108,6 +108,17 @@ const UrlTableSale = (props) => {
                             >
                                 {toWonBill(item.prev_price)}원
                             </td>
+                            <td
+                                style={{
+                                    height: td_Height,
+                                    wordWrap: "break-word",
+                                    whiteSpace: "pre-wrap",
+                                    overflow: "hidden",
+                                }}
+                            >
+                                {toWonBill(item.lowest_price)}원{"\n"}
+                                {toWonBill(item.highest_price)}원
+                            </td>
                             <td>
                                 <button onClick={() => handleDelete(item.url)}>
                                     <i className="fas fa-times">Del</i>
