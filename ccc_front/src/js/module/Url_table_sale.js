@@ -116,11 +116,8 @@ const UrlTableSale = (props) => {
                                     overflow: "hidden",
                                 }}
                             >
-                                {item.lowest_price}
-                                {"\n"}
-                                {item.highest_price}
-                                {/* {toWonBill(item.lowest_price)}원{"\n"} */}
-                                {/* {toWonBill(item.highest_price)}원 */}
+                                lp: {toWonBill(item.lowest_price)}원{"\n"}
+                                hp: {toWonBill(item.highest_price)}원
                             </td>
                             <td>
                                 <button onClick={() => handleDelete(item.url)}>
