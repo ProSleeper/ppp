@@ -34,7 +34,7 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
     for (const subscriber_data of total_subscriber_list) {
         for (const sale_data of product_sale_list) {
             try {
-                console.log("sale_data.title");
+                console.log(sale_data.title);
                 await webpush.sendNotification(
                     {
                         endpoint: subscriber_data.endpoint,
