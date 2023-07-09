@@ -36,6 +36,7 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
         for (const sale_data of product_sale_list) {
             console.log("do forfor");
             try {
+                console.log("try in");
                 await webpush.sendNotification(
                     {
                         endpoint: subscriber_data.endpoint,
@@ -44,7 +45,8 @@ const push_alarm = async (product_sale_list, total_subscriber_list) => {
                             auth: subscriber_data.auth,
                         },
                     },
-                    sale_data.title
+                    // sale_data.title
+                    "doing"
                     // sale_data.url
                     // JSON.stringify(product_sale_list)
                 );
