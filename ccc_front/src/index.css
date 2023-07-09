@@ -41,5 +41,9 @@ td {
     width: 100%;
     margin-top: 10px;
   }
+  
+  .ft-size {
+    font-size: 4px;
+  }
 
 }

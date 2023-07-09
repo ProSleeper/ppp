@@ -86,6 +86,7 @@ const Home = () => {
         change_date: "Change Date",
         sale_price: "Sale Price",
         prev_price: "Prev Price",
+        low_high_price:"Low High Price",
         delete: "Delete",
     };
 

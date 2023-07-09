@@ -41,7 +41,7 @@ const UrlTableSale = (props) => {
                 </thead>
                 <tbody>
                     {props.url_data.data.map((item, index) => (
-                        <tr key={index}>
+                        <tr className="ft-size" key={index}>
                             <td
                                 style={{
                                     height: td_Height,
