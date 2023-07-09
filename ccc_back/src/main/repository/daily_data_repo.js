@@ -74,7 +74,6 @@ const findByYesterdayPriceCompareTodayPrice = async (curr_time) => {
         try {
             connection.query(
                 `select dt.brand, dt.title, dt.url, CONCAT(dt.today, ' ${curr_time}:00:00') as change_date, dt.time0_price as sale_price, dy.time23_price as prev_price from daily_data dy inner join daily_data dt on dy.url = dt.url where DATE(dy.today) = CURDATE() - INTERVAL 1 DAY and DATE(dt.today) = CURDATE() and dy.time23_price > dt.time0_price`,
-                // `select dt.brand, dt.title, dt.url, CONCAT(dt.today, ' ${curr_time}:00:00') as change_date, dt.time0_price as sale_price, dy.time23_price as prev_price, ifnull((select lowest_price from url_data where url=dt.url and lowest_price != 0 and lowest_price < dt.time0_price), dt.time0_price) as lowest_price from daily_data dy inner join daily_data dt on dy.url = dt.url where DATE(dy.today) = CURDATE() - INTERVAL 1 DAY and DATE(dt.today) = CURDATE() and dy.time23_price > dt.time0_price`
                 function (error, rows, fields) {
                     if (error) reject(error);
                     resolve(rows);

@@ -190,6 +190,8 @@ CREATE TABLE sale_data (
   change_date DATETIME not null,
   sale_price int not null,
   prev_price int not null,
+  lowest_price int not null,
+  highest_price int not null,
   PRIMARY KEY(ID)
 );
 

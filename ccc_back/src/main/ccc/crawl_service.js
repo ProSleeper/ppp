@@ -8,7 +8,6 @@ const url_data_repo = require("../repository/url_data_repo.js");
 const prev_daily_data = require("../entity/prev_daily_data.js");
 const prev_daily_data_repo = require("../repository/prev_daily_data_repo.js");
 const sale_data = require("../entity/sale_data.js");
-const sale_data_dto = require("../dto/sale_data.dto.js");
 const sale_data_repo = require("../repository/sale_data_repo.js");
 
 const StoreProductData = async (data_list) => {
@@ -20,21 +19,21 @@ const StoreProductData = async (data_list) => {
     //추후에 curr_time >= 0 으로 해서 현재 0시이면 어제 날짜나 monthly_data와 비교하는 부분을 만들면 될거 같다.
 
     const insert_sale_data = async (sale_list) => {
-        let sale_dto_list = [];
+        let sale_low_list = [];
         for (const data of sale_list) {
-            const obj = new sale_data(data);
-            const result = await sale_data_repo.save(obj);
-            const [same_url_data] = await url_data_repo.findByUrl(obj.data.url);
-            console.log(obj.data.sale_price);
-            console.log(same_url_data.lowest_price);
-            if (obj.data.sale_price < same_url_data.lowest_price || same_url_data.lowest_price == 0) {
-                await url_data_repo.updateLowestPrice(obj.data.url, obj.data.sale_price);
-                const sale_dto = new sale_data_dto(obj.data, obj.data.sale_price);
-                sale_dto_list.push(sale_dto);
+            //data는 이전 가격과 비교해서 할인이 된 제품만 sale_list에 존재한다.
+            const [same_url_data] = await url_data_repo.findByUrl(data.url);
+            if (data.sale_price < same_url_data.lowest_price || same_url_data.lowest_price == 0) {
+                await url_data_repo.updateLowestPrice(data.url, data.sale_price);
+                data.lowest_price = data.sale_price;
+            } else {
+                data.lowest_price = same_url_data.lowest_price;
             }
-            //이 부분에 현재 할인가격과 최저가를 비교해서 현재 할인가격이 최저가보다 낮으면 최저가 업데이트.
+            const sale_data_obj = new sale_data(data);
+            await sale_data_repo.save(sale_data_obj);
+            sale_low_list.push(sale_data_obj);
         }
-        return sale_dto_list;
+        return sale_low_list;
     };
 
     const curr_time = dateUtil.HH();
@@ -48,9 +47,9 @@ const StoreProductData = async (data_list) => {
         } else {
             sale_list = await daily_data_repo.findBySale(curr_time);
         }
-        const sale_dto_list = await insert_sale_data(sale_list);
-        if (sale_dto_list && sale_dto_list.length > 0) {
-            return sale_dto_list;
+        const sale_low_list = await insert_sale_data(sale_list);
+        if (sale_low_list && sale_low_list.length > 0) {
+            return sale_low_list;
         }
     }
 };
