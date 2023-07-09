@@ -34,7 +34,8 @@ const main = async () => {
     );
 
     const product_sale_list = await StoreProductData(data_list);
-    console.log(`produect: ${product_sale_list}`);
+    console.log("product");
+    console.log(product_sale_list);
     // product_sale_list = null;
     if (product_sale_list) {
         const total_subscriber_list = await subs_service.get_total_subscriber();
