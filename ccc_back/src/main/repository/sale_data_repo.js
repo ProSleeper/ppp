@@ -22,6 +22,9 @@ const save = (data_obj) => {
 
 const remove = (url, change_date, sale_price) => {
     return new Promise((resolve, reject) => {
+        console.log(url);
+        console.log(change_date);
+        console.log(sale_price);
         connection.query(
             `delete from sale_data where url='${url}' and change_date='${change_date}' and sale_price = ${sale_price}`,
             function (error, rows, fields) {
