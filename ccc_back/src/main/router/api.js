@@ -11,7 +11,6 @@ module.exports = (app) => {
 const sale_controller = (app) => {
     app.get("/print_total_sale_data", async (req, res) => {
         const total_sale_data = await sale_service.get_total_sale_data();
-        console.log(total_sale_data);
         res.send(total_sale_data);
     });
 
