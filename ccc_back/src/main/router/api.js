@@ -16,6 +16,7 @@ const sale_controller = (app) => {
 
     app.delete("/remove_sale_data", async (req, res) => {
         const received_remove_sale_data_url = req.body.url;
+        console.log(req.body);
         const deleted_result = await sale_service.remove_sale_data(received_remove_sale_data_url);
         res.send(deleted_result);
     });
