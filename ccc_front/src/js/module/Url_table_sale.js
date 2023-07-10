@@ -7,28 +7,41 @@ import { print_url_list, remove_url } from "../utils/Common.js";
 //조금만 수정하면 중복 없이 만드는 거 가능할거 같은데 ㅠㅠ
 const UrlTableSale = (props) => {
     const [confirmDelete, setConfirmDelete] = useState(false);
-    const [deleteUrl, setDeleteUrl] = useState("");
+    const [deleteObj, setDeleteObj] = useState({});
     const headers = Object.entries(props.table_header);
 
-    const handleDelete = (url) => {
-        setDeleteUrl(url);
+    const handleDelete = (item) => {
+        console.log(item);
+        setDeleteObj(item);
         setConfirmDelete(true);
     };
 
+    // myObject가 빈 값인지 확인하는 함수
+    const isDeleteObjEmpty = () => {
+        return Object.keys(deleteObj).length !== 0;
+    };
+
     const confirmDeleteAction = async () => {
+        console.log(deleteObj);
         // 서버로 삭제 요청 보내는 로직 구현
-        if (deleteUrl !== "") {
-            await remove_url(deleteUrl, props.remove_va_url);
+        if (isDeleteObjEmpty()) {
+            // 날짜(시간까지), 값, url
+
+            // console.log(deleteObj.url);
+            // console.log(deleteObj.change_date);
+            // console.log(deleteObj.sale_price);
+            // await remove_url(deleteUrl, props.remove_sale_url);
+            await remove_sale_data({ url:deleteObj.url, change_date:deleteObj.change_date, sale_price:deleteObj.sale_price }, props.remove_sale_url)
         }
         setConfirmDelete(false);
-        setDeleteUrl("");
+        setDeleteObj({});
     };
     // console.log(props.print_total_va_url);
     // print_url_list(setData, props.print_total_va_url);
 
     useEffect(() => {
         print_url_list(props.url_data.setData, props.url_data.print_total_url);
-    }, [deleteUrl, props.url_data.print_total_url]);
+    }, [deleteObj, props.url_data.print_total_url]);
 
     const toWonBill = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -117,12 +130,11 @@ const UrlTableSale = (props) => {
                                 }}
                             >
                                 l{"\n"}
-                                {toWonBill(item.lowest_price)}원{"\n"}
-                                h{"\n"}
+                                {toWonBill(item.lowest_price)}원{"\n"}h{"\n"}
                                 {toWonBill(item.highest_price)}원
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(item.url)}>
+                                <button onClick={() => handleDelete(item)}>
                                     <i className="fas fa-times">Del</i>
                                 </button>
                             </td>

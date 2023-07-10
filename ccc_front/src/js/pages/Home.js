@@ -108,7 +108,7 @@ const Home = () => {
             >
                 Notification
             </Button>
-            <UrlTableSale table_header={table_header} url_data={url_data} remove_va_url={remove_url}></UrlTableSale>
+            <UrlTableSale table_header={table_header} url_data={url_data} remove_sale_url={remove_url}></UrlTableSale>
         </div>
     );
 };

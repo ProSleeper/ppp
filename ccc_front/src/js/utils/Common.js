@@ -138,6 +138,37 @@ export const remove_url = (url, reqUrl) => {
     });
 };
 
+export const remove_sale_data = (delete_sale_data, reqUrl) => {
+    //나는 이 조건 부분을 서버의 구동(window에서 express를 구동하는지 android linux에서 구동하는지를 판단하라고 적은건데) 그게 아니라
+    //클라이언트의 구동(브라우저를 실행하는 os, 즉 클라이언트)os를 판단하는거라서 아무 의미가 없는 코드였다.
+    //추후에 수정하자.
+    // const reqUrl = (isWindows && "http://127.0.0.1:4000/remove_url") || "http://manyo.hopto.org/remove_url";
+    return new Promise((resolve, reject) => {
+        fetch(reqUrl, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(delete_sale_data),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error("Network response was not ok");
+            })
+            .then((result) => {
+                if (result) {
+                    // print_url_list(setData);
+                    resolve();
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+};
+
 // export default {
 //     handleSubmit,
 //     print_url_list,
