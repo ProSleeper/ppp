@@ -11,7 +11,6 @@ const UrlTableSale = (props) => {
     const headers = Object.entries(props.table_header);
 
     const handleDelete = (item) => {
-        console.log(item);
         setDeleteObj(item);
         setConfirmDelete(true);
     };
@@ -22,7 +21,6 @@ const UrlTableSale = (props) => {
     };
 
     const confirmDeleteAction = async () => {
-        console.log(deleteObj);
         // 서버로 삭제 요청 보내는 로직 구현
         if (isDeleteObjEmpty()) {
             // 날짜(시간까지), 값, url
@@ -49,7 +47,6 @@ const UrlTableSale = (props) => {
     }, [deleteObj, props.url_data.print_total_url]);
 
     const toWonBill = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    console.log(props.url_data.data);
     const td_Height = 80;
     return (
         <div>
