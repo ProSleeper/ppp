@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
-import { print_url_list, remove_url } from "../utils/Common.js";
+import { print_url_list, remove_sale_data } from "../utils/Common.js";
 //va용으로 만들 테이블. 코드가 거의 같은데 당장 시간이 부족해서 그냥 복사 붙여넣기로 하나 만듬
 //조금만 수정하면 중복 없이 만드는 거 가능할거 같은데 ㅠㅠ
 const UrlTableSale = (props) => {
