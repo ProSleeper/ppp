@@ -25,8 +25,9 @@ const remove = (url, change_date, sale_price) => {
         console.log(url);
         console.log(change_date);
         console.log(sale_price);
+
         connection.query(
-            `delete from sale_data where url='${url}' and change_date='${change_date}' and sale_price = ${sale_price}`,
+            `delete from sale_data where url='${url}' and change_date=DATE_ADD('${change_date}', INTERVAL 9 HOUR) and sale_price = ${sale_price}`,
             function (error, rows, fields) {
                 if (error) reject(error);
                 resolve("delete ok");
