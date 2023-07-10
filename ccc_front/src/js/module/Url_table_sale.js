@@ -33,6 +33,7 @@ const UrlTableSale = (props) => {
             // await remove_url(deleteUrl, props.remove_sale_url);
             const dateObj = new Date(deleteObj.change_date);
             const formattedDate = dateObj.toISOString().slice(0, 19).replace("T", " ");
+            console.log(formattedDate);
             await remove_sale_data(
                 { url: deleteObj.url, change_date: formattedDate, sale_price: deleteObj.sale_price },
                 props.remove_sale_url
