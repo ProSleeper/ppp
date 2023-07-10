@@ -1,27 +1,9 @@
-function checkURLAvailability(url) {
-    return fetch(url)
-        .then((response) => {
-            if (response.ok) {
-                return true; // URL에 접속 가능
-            } else {
-                return false; // URL에 접속 불가능
-            }
-        })
-        .catch(() => {
-            return false; // URL에 접속 불가능
-        });
-}
+const dateString = "2023-07-04T07:00:00.000Z";
+const dateObj = new Date(dateString);
 
-// 사용 예시
-const url = "http://musinsa.com";
-checkURLAvailability(url)
-    .then((result) => {
-        if (result) {
-            console.log("URL is accessible");
-        } else {
-            console.log("URL is not accessible");
-        }
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+// DB에 다시 넣기 위해 원하는 형식으로 변환
+// const formattedDate = dateObj.toISOString(); // "2023-07-04T07:00:00.000Z"
+const formattedDate = dateObj.toISOString().slice(0, 19).replace('T', ' ');
+// 예시로 변환된 날짜를 출력해보겠습니다.
+console.log(dateObj);
+console.log(formattedDate);
