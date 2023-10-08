@@ -24,14 +24,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    const redirect_https_url = process.env.HTTPS_URL + req.url;
-    if (!req.secure) {
-        res.redirect(redirect_https_url);
-    } else {
-        next();
-    }
-});
+// app.use((req, res, next) => {
+//     const redirect_https_url = process.env.HTTPS_URL + req.url;
+//     if (!req.secure) {
+//         res.redirect(redirect_https_url);
+//     } else {
+//         next();
+//     }
+// });
+
+app.use(express.static(react_build_file));
 
 //이 부분에서 was, api, push 다 추가하면 될듯.
 was(app, express);
