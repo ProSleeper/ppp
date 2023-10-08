@@ -10,14 +10,14 @@ const was = require("./src/main/router/was");
 const api = require("./src/main/router/api");
 const push = require("./src/main/router/push");
 
-const options = {
-    key: fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
-    cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.crt"), "utf8"),
-    ca: fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.crt"), "utf8"),
-};
+// const options = {
+//     key: fs.readFileSync(path.join(__dirname, "/ssl_keys/private.key"), "utf8"),
+//     cert: fs.readFileSync(path.join(__dirname, "/ssl_keys/certificate.crt"), "utf8"),
+//     ca: fs.readFileSync(path.join(__dirname, "/ssl_keys/ca_bundle.crt"), "utf8"),
+// };
 
 const portForHttp = 4000;
-const portForHttps = 4001;
+// const portForHttps = 4001;
 
 app.use(cors());
 
@@ -39,12 +39,12 @@ api(app);
 push(app);
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(options, app);
+// const httpsServer = https.createServer(options, app);
 
 httpServer.listen(portForHttp, function () {
     console.log("Http server listening on port " + portForHttp);
 });
 
-httpsServer.listen(portForHttps, function () {
-    console.log("Https server listening on port " + portForHttps);
-});
+// httpsServer.listen(portForHttps, function () {
+//     console.log("Https server listening on port " + portForHttps);
+// });
