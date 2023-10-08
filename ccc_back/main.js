@@ -33,8 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 //     }
 // });
 
-app.use(express.static(react_build_file));
-
 //이 부분에서 was, api, push 다 추가하면 될듯.
 was(app, express);
 api(app);
